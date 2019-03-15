@@ -1,4 +1,3 @@
-import React from "react";
 import Publication from "./pages/Publication";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
