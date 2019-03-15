@@ -1,16 +1,17 @@
 import React from 'react';
-import {Collapse, Nav, Navbar, NavLink, NavbarBrand, NavbarToggler, NavItem} from "reactstrap";
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
-import { NavLink as Link } from "react-router-dom";
+import {NavLink as Link} from "react-router-dom";
 
-class Menu extends React.Component {
+export default class extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            isLogged: false
         };
     }
 
@@ -24,7 +25,7 @@ class Menu extends React.Component {
         return (
             <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">SocialReact</NavbarBrand>
-                <NavbarToggler onClick={this.toggle} />
+                <NavbarToggler onClick={this.toggle}/>
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
@@ -33,16 +34,29 @@ class Menu extends React.Component {
                             </NavLink>
                         </NavItem>
 
-                        <NavItem>
-                            <NavLink tag={Link} exact to={"/a"} activeClassName="active">
-                                John Doe
-                            </NavLink>
-                        </NavItem>
+                        {this.state.isLogged ? (
+                            <NavItem>
+                                <NavLink tag={Link} exact to={"/a"} activeClassName="active">
+                                    John Doe
+                                </NavLink>
+                            </NavItem>
+                        ) : (
+                            <React.Fragment>
+                                <NavItem>
+                                    <NavLink tag={Link} exact to={"/login"} activeClassName="active">
+                                        Log in
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} exact to={"/signup"} activeClassName="active">
+                                        Sign up
+                                    </NavLink>
+                                </NavItem>
+                            </React.Fragment>
+                        )}
                     </Nav>
                 </Collapse>
             </Navbar>
         );
     }
 }
-
-export default Menu;

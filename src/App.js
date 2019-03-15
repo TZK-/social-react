@@ -12,7 +12,7 @@ class App extends Component {
                     <header>
                         <Menu/>
                     </header>
-                    
+
                     {routes.map((route, index) => (
                         <Route
                             key={index}
