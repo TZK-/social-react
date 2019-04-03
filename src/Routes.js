@@ -1,4 +1,4 @@
-import Publication from "./pages/Publication";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
@@ -6,7 +6,7 @@ export default [
     {
         path: "/",
         exact: true,
-        component: Publication
+        component: Home
     },
     {
         path: '/login',
