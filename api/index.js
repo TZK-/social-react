@@ -1,39 +1,11 @@
-const {getById} = require("./services/user.service");
-
 const config = require('./config');
-
+const {passport} = require('./passport');
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const app = express();
 
-const passport = require("passport");
-const passportJWT = require("passport-jwt");
-
-const ExtractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passportJWT.Strategy;
-const jwtOptions = {
-    jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: config.jwt.secret
-};
-
-const strategy = new JwtStrategy(jwtOptions, async (payload, next)  =>{
-    let user;
-    try {
-        user = await getById(payload.id);
-    } catch (e) {
-        next(e, false)
-    }
-
-    if (user) {
-        next(null, user);
-    } else {
-        next(null, false);
-    }
-});
-
-passport.use('jwt', strategy);
 app.use(passport.initialize());
 
 app.use(function (req, res, next) {

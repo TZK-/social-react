@@ -1,5 +1,5 @@
 const express = require('express');
-const passport = require('passport');
+const {gate} = require('../passport');
 const userService = require('../services/user.service');
 const router = express.Router();
 
@@ -30,9 +30,8 @@ const show = async (req, res, next) => {
     }
 };
 
-const authGate = passport.authenticate('jwt', {session: false});
 router.post('/', register);
-router.get('/', authGate, getAll);
-router.get('/:id', authGate, show);
+router.get('/', gate, getAll);
+router.get('/:id', gate, show);
 
 module.exports = router;
