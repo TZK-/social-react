@@ -15,7 +15,10 @@ async function findByCredentials(email, password) {
         return user;
     }
 
-    throw new Error("Bad credentials");
+    throw {
+        code: 401,
+        message: ("Bad credentials")
+    };
 }
 
 async function getById(id) {
@@ -38,15 +41,14 @@ async function create(params) {
 }
 
 async function getJWT(email, password) {
-    await findByCredentials(email, password);
+    const user = await findByCredentials(email, password);
 
-    return jwt.sign({email}, config.jwt.secret, config.jwt.options);
+    return jwt.sign({id: user.id}, config.jwt.secret, config.jwt.options || {});
 }
 
 module.exports = {
     getAll,
     getById,
     create,
-    findByCredentials,
     getJWT
 };
