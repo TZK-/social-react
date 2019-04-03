@@ -1,9 +1,21 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 async function getAll() {
     return await User.find().select('-password');
+}
+
+async function findByCredentials(email, password) {
+    const user = await User.findOne({email});
+    if (user != null && bcrypt.compareSync(password, user.password)) {
+        delete user.password;
+        return user;
+    }
+
+    throw new Error("Bad credentials");
 }
 
 async function getById(id) {
@@ -25,8 +37,16 @@ async function create(params) {
     return user.save();
 }
 
+async function getJWT(email, password) {
+    await findByCredentials(email, password);
+
+    return jwt.sign({email}, config.jwt.secret, config.jwt.options);
+}
+
 module.exports = {
     getAll,
     getById,
-    create
+    create,
+    findByCredentials,
+    getJWT
 };
