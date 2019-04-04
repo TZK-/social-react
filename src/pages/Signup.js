@@ -1,20 +1,11 @@
 import React from "react";
-import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import {NavLink, Redirect} from "react-router-dom";
-import {userService} from "../services/user.service";
+import {Button, Col, Container, Label} from "reactstrap";
+import {NavLink, Redirect, withRouter} from "react-router-dom";
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {connect} from "react-redux";
+import {registerUser} from "../actions/authentication";
 
-export default class extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: '',
-            first_name: '',
-            last_name: '',
-            password: ''
-        };
-    }
-
+class Signup extends React.Component {
     changeHandler = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -24,10 +15,25 @@ export default class extends React.Component {
         });
     };
 
-    submit = async (event) => {
-        event.preventDefault();
+    constructor(props) {
+        super(props);
 
-        const res = await userService.create(this.state);
+        this.submit = this.submit.bind(this);
+
+        this.state = {
+            email: '',
+            first_name: '',
+            last_name: '',
+            password: '',
+        };
+    }
+
+    async submit(event, errors, values) {
+        if (errors.length > 0) {
+            return;
+        }
+
+        this.props.registerUser(this.state, this.props.history);
     };
 
     render() {
@@ -40,64 +46,80 @@ export default class extends React.Component {
         return (
             <Container>
                 <h2>Sign up</h2>
-                <Form className="form" onSubmit={(e) => this.submit(e)}>
+                <AvForm className="form" onSubmit={this.submit}>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for={"first_name"}>First name</Label>
-                            <Input
+                            <AvInput
+                                required
                                 type="text"
                                 name="first_name"
-                                placeholder="myemail@email.com"
                                 id={"first_name"}
                                 value={this.state.first_name}
                                 onChange={this.changeHandler}
+                                validate={{
+                                    required: {value: true},
+                                }}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for={"last_name"}>Last name</Label>
-                            <Input
+                            <AvInput
                                 type="text"
                                 name="last_name"
                                 id={"last_name"}
                                 value={this.state.last_name}
                                 onChange={this.changeHandler}
+                                validate={{
+                                    required: {value: true},
+                                }}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for={"email"}>Email</Label>
-                            <Input
+                            <AvInput
                                 type="email"
                                 name="email"
-                                placeholder="email@example.com"
                                 id={"email"}
                                 value={this.state.email}
                                 onChange={this.changeHandler}
+                                validate={{
+                                    required: true,
+                                    email: true,
+                                }}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for="password">Password</Label>
-                            <Input
+                            <AvInput
                                 type="password"
                                 name="password"
                                 placeholder="********"
                                 id={"password"}
                                 value={this.state.password}
                                 onChange={this.changeHandler}
+                                validate={{
+                                    required: true
+                                }}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <div>
                         <NavLink to={"/login"}>You already have an account ? Log in !</NavLink>
                     </div>
                     <Button>Submit</Button>
-                </Form>
+                </AvForm>
             </Container>
         );
     }
 }
+
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps, {registerUser})(withRouter(Signup))
