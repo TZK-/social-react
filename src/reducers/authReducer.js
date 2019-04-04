@@ -1,16 +1,18 @@
-import {AUTH_SET_USER, GET_ERRORS} from '../actions';
+import {AUTH_SET_USER} from '../actions';
+
+const user = localStorage.getItem('user');
 
 const initialState = {
-    isAuthenticated: false,
-    user: null
+    isAuthenticated: !!user,
+    user: user ? JSON.parse(user) : null
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case AUTH_SET_USER:
             return Object.assign({}, state, {
-                isAuthenticated: true,
-                user: action.payload.user
+                isAuthenticated: !!action.payload,
+                user: action.payload
             });
 
         default:

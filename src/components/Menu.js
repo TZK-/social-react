@@ -2,17 +2,21 @@ import React from 'react';
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
 import {NavLink as Link, withRouter} from "react-router-dom";
-import {authService} from "../services/auth.service";
+import {connect} from "react-redux";
+import {logoutUser} from "../actions/authentication";
 
 class Menu extends React.Component {
+
+    logout = () => {
+        this.props.logoutUser(this.props.history);
+    };
 
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false,
-            user: authService.getUser()
+            isOpen: false
         };
     }
 
@@ -21,11 +25,6 @@ class Menu extends React.Component {
             isOpen: !this.state.isOpen
         });
     }
-
-    logout = () => {
-        authService.logout();
-        this.setState({user: null});
-    };
 
     render() {
         return (
@@ -40,11 +39,11 @@ class Menu extends React.Component {
                             </NavLink>
                         </NavItem>
 
-                        {this.state.user ? (
+                        {this.props.user ? (
                             <React.Fragment>
                                 <NavItem>
                                     <NavLink tag={Link} exact to={"/a"} activeClassName="active">
-                                        {this.state.user.first_name} {this.state.user.last_name}
+                                        {this.props.user.first_name} {this.props.user.last_name}
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -79,4 +78,8 @@ class Menu extends React.Component {
     }
 }
 
-export default withRouter(Menu);
+const mapStateToProps = state => ({
+    user: state.auth.user
+});
+
+export default withRouter(connect(mapStateToProps, {logoutUser})(Menu));

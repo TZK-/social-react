@@ -122,4 +122,4 @@ class Signup extends React.Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps, {registerUser})(withRouter(Signup))
+export default withRouter(connect(mapStateToProps, {registerUser})(Signup))

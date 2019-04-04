@@ -1,19 +1,11 @@
 import React from "react";
-import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import {NavLink, Redirect} from "react-router-dom";
-import {authService} from "../services/auth.service";
+import {Button, Col, Container, Label} from "reactstrap";
+import {NavLink, Redirect, withRouter} from "react-router-dom";
+import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {loginUser} from "../actions/authentication";
+import {connect} from "react-redux";
 
-export default class extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: null,
-            password: null,
-            isAuthenticated: authService.isAuthenticated()
-        }
-    }
+class Login extends React.Component {
 
     handleChange = async (event) => {
         this.setState({
@@ -21,60 +13,63 @@ export default class extends React.Component {
         });
     };
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
-
-        // TODO handle form validation
-        try {
-            await authService.login(this.state.email, this.state.password);
-            this.setState({isAuthenticated: true});
-        } catch (e) {
-            // TODO handle API errors
-            console.error(e);
+    handleSubmit = async (event, errors) => {
+        if (errors.length > 0) {
+            return;
         }
+
+        this.props.loginUser(this.state, this.props.history);
     };
 
-    render() {
-        if (this.state.isAuthenticated) {
-            return (
-                <Redirect to={"/"}/>
-            );
-        }
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            email: null,
+            password: null
+        }
+    }
+
+    render() {
         return (
             <Container>
                 <h2>Log In</h2>
-                <Form method="post" className="form" onSubmit={this.handleSubmit}>
+                <AvForm method="post" className="form" onSubmit={this.handleSubmit}>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for={"email"}>Email</Label>
-                            <Input
+                            <AvInput
                                 type="email"
                                 name="email"
                                 id="email"
-                                placeholder="email@example.com"
                                 onChange={this.handleChange}
+                                validate={{required: true, email: true}}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <Col>
-                        <FormGroup>
+                        <AvGroup>
                             <Label for="password">Mot de passe</Label>
-                            <Input
+                            <AvInput
                                 type="password"
                                 name="password"
                                 id="password"
                                 placeholder="********"
                                 onChange={this.handleChange}
+                                validate={{required: true}}
                             />
-                        </FormGroup>
+                        </AvGroup>
                     </Col>
                     <div>
                         <NavLink to={"/signup"}>You do not have an account yet ? Sign up !</NavLink>
                     </div>
                     <Button>Submit</Button>
-                </Form>
+                </AvForm>
             </Container>
         );
     }
 }
+
+const mapStateProps = state => state;
+
+export default withRouter(connect(mapStateProps, {loginUser})(Login));

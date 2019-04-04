@@ -1,13 +1,7 @@
 import React from 'react';
 import {Button, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
-import {authService} from "../../services/auth.service";
 
 export default class extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.user = authService.getUser();
-    }
 
     sendFriendRequest(e) {
 
@@ -22,7 +16,7 @@ export default class extends React.Component {
                 <CardBody>
                     <CardTitle>{this.props.user.first_name} {this.props.user.last_name}</CardTitle>
                     <CardText>Some quick example text</CardText>
-                    {this.user.id !== this.props.user.id ? (
+                    {true ? (
                         <Button onClick={this.sendFriendRequest}>Demander en ami</Button>
                     ) : ''}
                 </CardBody>
