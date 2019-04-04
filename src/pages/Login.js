@@ -1,32 +1,71 @@
 import React from "react";
 import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
+import {authService} from "../services/auth.service";
 
 export default class extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: null,
+            password: null,
+            isAuthenticated: authService.isAuthenticated()
+        }
+    }
+
+    handleChange = async (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    };
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // TODO handle form validation
+        try {
+            await authService.login(this.state.email, this.state.password);
+            this.setState({'isAuthenticated': true});
+        } catch (e) {
+            // TODO handle API errors
+            console.error(e);
+        }
+    };
+
     render() {
+        if (this.state.isAuthenticated) {
+            return (
+                <Redirect to={"/"}/>
+            );
+        }
+
         return (
             <Container>
                 <h2>Log In</h2>
-                <Form className="form">
+                <Form method="post" className="form" onSubmit={this.handleSubmit}>
                     <Col>
                         <FormGroup>
-                            <Label>Email</Label>
+                            <Label for={"email"}>Email</Label>
                             <Input
                                 type="email"
                                 name="email"
-                                id="exampleEmail"
-                                placeholder="myemail@email.com"
+                                id="email"
+                                placeholder="email@example.com"
+                                onChange={this.handleChange}
                             />
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
-                            <Label for="examplePassword">Password</Label>
+                            <Label for="password">Mot de passe</Label>
                             <Input
                                 type="password"
                                 name="password"
-                                id="examplePassword"
+                                id="password"
                                 placeholder="********"
+                                onChange={this.handleChange}
                             />
                         </FormGroup>
                     </Col>

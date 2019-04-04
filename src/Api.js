@@ -1,9 +1,15 @@
 import config from './config';
 import axios from "axios";
 
+const token = localStorage.getItem('user') ?
+    JSON.parse(localStorage.getItem('user')).token
+    : null;
+
 class Api {
     constructor() {
         this.entrypoint = config.api.entrypoint;
+        this.token = token;
+        axios.defaults.headers.common = {'Authorization': `Bearer ${this.token}`};
     }
 
     getUrl(endpoint, params = {}) {

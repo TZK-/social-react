@@ -1,6 +1,6 @@
+const {userService} = require("../services/user.service");
 const express = require('express');
 const {gate} = require('../passport');
-const userService = require('../services/user.service');
 const router = express.Router();
 
 const register = async (req, res, next) => {

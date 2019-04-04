@@ -2,6 +2,7 @@ import React from 'react';
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
 import {NavLink as Link} from "react-router-dom";
+import {authService} from "../services/auth.service";
 
 export default class extends React.Component {
 
@@ -11,7 +12,7 @@ export default class extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
             isOpen: false,
-            isLogged: false
+            user: authService.getUser()
         };
     }
 
@@ -20,6 +21,11 @@ export default class extends React.Component {
             isOpen: !this.state.isOpen
         });
     }
+
+    logout = () => {
+        authService.logout();
+        this.setState({user: null});
+    };
 
     render() {
         return (
@@ -34,12 +40,24 @@ export default class extends React.Component {
                             </NavLink>
                         </NavItem>
 
-                        {this.state.isLogged ? (
-                            <NavItem>
-                                <NavLink tag={Link} exact to={"/a"} activeClassName="active">
-                                    John Doe
-                                </NavLink>
-                            </NavItem>
+                        {this.state.user ? (
+                            <React.Fragment>
+                                <NavItem>
+                                    <NavLink tag={Link} exact to={"/a"} activeClassName="active">
+                                        {this.state.user.first_name} {this.state.user.last_name}
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        onClick={this.logout}
+                                        tag={Link} exact
+                                        to={"/"}
+                                        activeClassName="active">
+                                        Se déconnecter
+                                    </NavLink>
+                                </NavItem>
+                            </React.Fragment>
+
                         ) : (
                             <React.Fragment>
                                 <NavItem>

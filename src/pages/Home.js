@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Container, Row} from "reactstrap";
-import {getAll} from "../services/user.service";
+import {userService} from "../services/user.service";
 import ProfileCard from "../components/Profile/ProfileCard";
 
 export default class extends React.Component {
@@ -15,7 +15,7 @@ export default class extends React.Component {
     }
 
     async componentDidMount() {
-        const users = await getAll();
+        const users = await userService.getAll();
 
         this.setState({
             loaded: true,

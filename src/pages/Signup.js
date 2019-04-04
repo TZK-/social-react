@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
 import {NavLink} from "react-router-dom";
-import {create} from '../services/user.service';
+import {userService} from "../services/user.service";
 
 export default class extends React.Component {
     constructor(props) {
@@ -27,9 +27,7 @@ export default class extends React.Component {
     submit = async (event) => {
         event.preventDefault();
 
-        const res = await create(this.state);
-
-        console.log("ok", res);
+        const res = await userService.create(this.state);
     };
 
     render() {

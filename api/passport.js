@@ -1,7 +1,7 @@
 const config = require('./config');
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
-const {getById} = require("./services/user.service");
+const {userService} = require("./services/user.service");
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
@@ -13,7 +13,7 @@ const jwtOptions = {
 const strategy = new JwtStrategy(jwtOptions, async (payload, next)  =>{
     let user;
     try {
-        user = await getById(payload.id);
+        user = await userService.getById(payload.id);
     } catch (e) {
         next(e, false)
     }

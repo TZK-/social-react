@@ -4,7 +4,7 @@ module.exports = {
     jwt: {
         secret: 'eYiyO2BA9uf0XOvbY12dDYGA71nc',
         options: {
-            expiresIn: 360
+            expiresIn: 60*60*30
         }
     }
 };
