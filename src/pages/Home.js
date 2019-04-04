@@ -1,6 +1,7 @@
 import React from "react";
 import {Col, Container, Row} from "reactstrap";
-import {userService} from "../services/user.service";
+import {Redirect} from "react-router-dom";
+import {authService} from "../services/auth.service";
 import ProfileCard from "../components/Profile/ProfileCard";
 
 export default class extends React.Component {
@@ -8,38 +9,35 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
 
+        this.user = authService.getUser();
         this.state = {
-            users: [],
-            loaded: false
-        };
+            posts: []
+        }
     }
 
-    async componentDidMount() {
-        const users = await userService.getAll();
-
-        this.setState({
-            loaded: true,
-            users: users.data
-        })
-    }
+    // componentDidMount() {
+    //     // const posts = postService.getAllForUser(user);
+    //     // this.setState(posts.data);
+    // }
 
     render() {
-        const cards = this.state.users.map(user => {
+        if (!this.user) {
             return (
-                <Col sm={4} key={user.id}>
-                    <ProfileCard user={user}/>
-                </Col>
+                <Redirect to={"/login"}/>
             );
-        });
-
-        if (!this.state.loaded) {
-            return null;
         }
 
         return (
             <Container>
                 <Row>
-                    {cards}
+                    <Col sm={3}>
+                        <ProfileCard user={this.user}/>
+                    </Col>
+                    <Col sm={11}>
+                        {this.state.posts.map(post => (
+                            {/*<PostCard post={post}/>*/}
+                        ))}
+                    </Col>
                 </Row>
             </Container>
         );

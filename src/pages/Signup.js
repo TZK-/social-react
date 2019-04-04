@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Col, Container, Form, FormGroup, Input, Label} from "reactstrap";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import {userService} from "../services/user.service";
 
 export default class extends React.Component {
@@ -31,6 +31,12 @@ export default class extends React.Component {
     };
 
     render() {
+        if (this.state.isAuthenticated) {
+            return (
+                <Redirect to={"/"}/>
+            );
+        }
+
         return (
             <Container>
                 <h2>Sign up</h2>

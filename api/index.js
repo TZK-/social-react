@@ -1,10 +1,11 @@
-const config = require('./config');
-const {passport} = require('./passport');
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
 const cors = require('cors');
+const config = require('./config');
+const {notFound} = require("./helpers");
+const {passport} = require('./passport');
+const routes = require('./routes');
 const app = express();
 
 app.use(cors());
@@ -15,16 +16,14 @@ app.use(bodyParser.json());
 app.use('/', routes);
 
 app.use((req, res, next) => {
-    const err = new Error('Page Not Found');
-    err.status = 404;
-    next(err);
+    next(notFound());
 });
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({
         error: {
-            message: err.message
+            message: err.message,
         }
     });
 });

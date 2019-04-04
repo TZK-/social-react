@@ -28,7 +28,7 @@ function getUser() {
 }
 
 function isAuthenticated() {
-    return !!getUser();
+    return getUser() !== null;
 }
 
 export const authService = {

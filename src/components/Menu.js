@@ -1,10 +1,10 @@
 import React from 'react';
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
-import {NavLink as Link} from "react-router-dom";
+import {NavLink as Link, withRouter} from "react-router-dom";
 import {authService} from "../services/auth.service";
 
-export default class extends React.Component {
+class Menu extends React.Component {
 
     constructor(props) {
         super(props);
@@ -78,3 +78,5 @@ export default class extends React.Component {
         );
     }
 }
+
+export default withRouter(Menu);

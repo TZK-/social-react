@@ -27,7 +27,7 @@ export default class extends React.Component {
         // TODO handle form validation
         try {
             await authService.login(this.state.email, this.state.password);
-            this.setState({'isAuthenticated': true});
+            this.setState({isAuthenticated: true});
         } catch (e) {
             // TODO handle API errors
             console.error(e);

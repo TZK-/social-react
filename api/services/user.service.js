@@ -23,7 +23,7 @@ async function getById(id) {
         return null;
     }
 
-    return await User.findById(id).select('-password');
+    return User.findById(id).select('-password');
 }
 
 async function create(params) {
@@ -35,6 +35,18 @@ async function create(params) {
     user.password = bcrypt.hashSync(user.password);
 
     return user.save();
+}
+
+async function edit(user, data) {
+    for (const [key, value] of Object.entries(data)) {
+        if (user[key]) {
+            user[key] = value;
+        }
+    }
+
+    await user.save();
+
+    return user;
 }
 
 async function getJWT(user) {
@@ -50,5 +62,6 @@ module.exports.userService = {
     getById,
     create,
     getJWT,
-    findByCredentials
+    findByCredentials,
+    edit
 };
