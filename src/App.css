@@ -16,3 +16,13 @@ h1, h2, h3, h4, h5, h6 {
     height: 40px;
     border-radius: 50%;
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.btn-rounded {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}

@@ -44,9 +44,9 @@ async function edit(req, res, next) {
     }
 }
 
-router.post('/', register);
-router.get('/', gate, getAll);
-router.get('/:id', gate, show);
-router.put('/:id', gate, edit);
+router.post('/users', register);
+router.get('/users', gate, getAll);
+router.get('/users/:id', gate, show);
+router.put('/users/:id', gate, edit);
 
 module.exports = router;

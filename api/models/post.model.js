@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    title: {
-        type: String,
-        unique: true,
-        required: true
-    },
     content: {
         type: String,
         required: true
@@ -14,6 +9,10 @@ const schema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 schema.set('toJSON', {virtuals: true});

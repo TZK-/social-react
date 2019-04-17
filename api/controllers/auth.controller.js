@@ -18,6 +18,6 @@ const auth = async (req, res, next) => {
     res.status(200).json({token, user});
 };
 
-router.post('/', auth);
+router.post('/auth', auth);
 
 module.exports = router;

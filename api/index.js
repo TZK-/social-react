@@ -16,6 +16,10 @@ app.use(bodyParser.json());
 
 app.use('/', routes);
 
+app.use((req, res, next) => {
+    next(notFound());
+});
+
 app.use((err, req, res, next) => {
     if (!err) return next();
 
@@ -25,10 +29,6 @@ app.use((err, req, res, next) => {
             message: err.message,
         }
     });
-});
-
-app.use((req, res, next) => {
-    next(notFound());
 });
 
 app.listen(config.express_port, function () {

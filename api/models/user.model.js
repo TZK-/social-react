@@ -16,12 +16,17 @@ const schema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     created_at: {
         type: Date,
         default: Date.now()
     },
+});
+
+schema.pre('init', (user) => {
+    user.avatar = 'https://picsum.photos/200';
 });
 
 schema.set('toJSON', {virtuals: true});

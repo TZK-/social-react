@@ -1,6 +1,10 @@
 import {AUTH_SET_USER} from '../actions';
+import {bindAxiosJWT} from "../helpers/auth";
 
 const user = localStorage.getItem('user');
+const token = localStorage.getItem('jwt_token');
+
+bindAxiosJWT(token);
 
 const initialState = {
     isAuthenticated: !!user,

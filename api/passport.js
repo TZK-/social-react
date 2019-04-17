@@ -15,7 +15,7 @@ const strategy = new JwtStrategy(jwtOptions, async (payload, next)  =>{
     try {
         user = await userService.getById(payload.id);
     } catch (e) {
-        next(e, false)
+        next(e, false);
     }
 
     if (user) {

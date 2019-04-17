@@ -1,0 +1,9 @@
+.username {
+    margin-left: 10px;
+    display: inline;
+}
+
+.date {
+    float: right;
+    margin-top: 6px;
+}

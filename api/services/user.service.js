@@ -5,11 +5,11 @@ const jwt = require("jsonwebtoken");
 const config = require("../config");
 
 async function getAll() {
-    return await User.find().select('-password');
+    return await User.find().select();
 }
 
 async function findByCredentials(email, password) {
-    const user = await User.findOne({email});
+    const user = await User.findOne({email}).select('+password');
     if (user != null && bcrypt.compareSync(password, user.password)) {
         delete user.password;
         return user;
@@ -23,7 +23,7 @@ async function getById(id) {
         return null;
     }
 
-    return User.findById(id).select('-password');
+    return User.findById(id).select();
 }
 
 async function create(params) {
@@ -49,7 +49,7 @@ async function edit(user, data) {
     return user;
 }
 
-async function getJWT(user) {
+function getJWT(user) {
     return jwt.sign(
         {id: user.id},
         config.jwt.secret,

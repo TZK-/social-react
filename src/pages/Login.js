@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 
 class Login extends React.Component {
 
-    handleChange = async (event) => {
+    handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -51,7 +51,6 @@ class Login extends React.Component {
                                 name="password"
                                 id="password"
                                 label={"Mot de passe"}
-                                placeholder="********"
                                 onChange={this.handleChange}
                                 validate={{required: true}}
                             />
@@ -64,7 +63,7 @@ class Login extends React.Component {
 
                             <FormGroup>
                                 <div className="text-right">
-                                    <Button>Se connecter</Button>
+                                    <Button color={"primary"}>Valider</Button>
                                 </div>
                             </FormGroup>
                         </AvForm>

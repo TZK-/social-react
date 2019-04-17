@@ -1,10 +1,10 @@
 import React from "react";
-import {Button, Card, CardImg, Col, Container, FormGroup, Row} from "reactstrap";
+import {Button, Col, Container, FormGroup, Row} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 
-class Profile extends React.Component {
+class ProfileEdit extends React.Component {
 
     changeHandler = (event) => {
         const name = event.target.name;
@@ -145,4 +145,4 @@ const mapStateToProps = state => ({
     user: state.auth.user
 });
 
-export default withRouter(connect(mapStateToProps)(Profile));
+export default withRouter(connect(mapStateToProps)(ProfileEdit));

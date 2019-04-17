@@ -1,0 +1,26 @@
+.post-form {
+    background: #ffe2e2;
+    padding: 15px;
+    width: 100%;
+
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
+.post-form textarea {
+    border: 1px solid red;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+
+    resize: none;
+}
+
+.action-buttons {
+    color: #2f2f2f;
+}
+
+.cancel-action {
+    text-decoration: underline;
+}

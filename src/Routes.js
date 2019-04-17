@@ -1,7 +1,8 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
+import ProfileEdit from "./pages/Profile/ProfileEdit";
 
 export default [
     {
@@ -11,6 +12,11 @@ export default [
     },
     {
         path: "/me",
+        exact: true,
+        component: ProfileEdit
+    },
+    {
+        path: "/users/:id",
         exact: true,
         component: Profile
     },
