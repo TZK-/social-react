@@ -27,7 +27,7 @@ class Menu extends React.Component {
 
     toggleMenu = () => {
         this.setState({
-            isOpen: !this.state.isMenuOpen
+            isMenuOpen: !this.state.isMenuOpen
         });
     };
 
@@ -54,7 +54,9 @@ class Menu extends React.Component {
                                         <img className={"avatar"} src="https://picsum.photos/200" alt="My profile avatar"/>
                                     </DropdownToggle>
                                     <DropdownMenu right>
-                                        <DropdownItem>Paramètres</DropdownItem>
+                                        <DropdownItem>
+                                            <Link to={"/me"} exact>Paramètres</Link>
+                                        </DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem onClick={this.logout}>
                                             Déconnexion
