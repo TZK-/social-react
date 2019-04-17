@@ -5,10 +5,12 @@ import {setAuthToken} from "../helpers/auth";
 export const registerUser = (user, history) => dispatch => {
     Api.post('users', {}, user)
         .then(() => history.push('/login'))
-        .catch(e => dispatch({
-            type: GET_ERRORS,
-            payload: e.response.data
-        }));
+        .catch(e => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: {message: e.message, code: e.status}
+            });
+        });
 };
 
 export const loginUser = (credentials, history) => dispatch => {
@@ -17,16 +19,20 @@ export const loginUser = (credentials, history) => dispatch => {
             const {user, token} = response.data;
 
             setAuthToken(user, token);
+
             dispatch({
                 type: AUTH_SET_USER,
                 payload: response.data.user,
             });
+
             history.push('/');
         })
-        .catch(e => dispatch({
-            type: GET_ERRORS,
-            payload: e.message
-        }));
+        .catch(e => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: {message: e.message, code: e.status}
+            });
+        });
 };
 
 export const logoutUser = (history) => dispatch => {

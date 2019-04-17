@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const {userService} = require("../services/user.service");
+const {unauthenticated, unprocessable} = require("../helpers");
 
 const express = require('express');
 const router = express.Router();
@@ -10,15 +11,11 @@ const auth = async (req, res, next) => {
     const user = await userService.findByCredentials(email, password);
 
     if (!user) {
-        return res.status(401);
+        return next(unprocessable("Bad credentials"));
     }
 
-    try {
-        const token = await userService.getJWT(user);
-        res.status(200).json({token, user});
-    } catch (e) {
-        return res.status(401).json({message: e.message})
-    }
+    const token = userService.getJWT(user);
+    res.status(200).json({token, user});
 };
 
 router.post('/', auth);

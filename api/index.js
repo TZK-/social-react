@@ -13,19 +13,22 @@ app.use(passport.initialize());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
 app.use('/', routes);
 
-app.use((req, res, next) => {
-    next(notFound());
-});
-
 app.use((err, req, res, next) => {
+    if (!err) return next();
+
     res.status(err.status || 500);
     res.json({
         error: {
             message: err.message,
         }
     });
+});
+
+app.use((req, res, next) => {
+    next(notFound());
 });
 
 app.listen(config.express_port, function () {

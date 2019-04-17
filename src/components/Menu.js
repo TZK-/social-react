@@ -1,5 +1,15 @@
 import React from 'react';
-import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
+import {
+    Collapse,
+    DropdownItem, DropdownMenu,
+    DropdownToggle,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink, UncontrolledDropdown
+} from "reactstrap";
 
 import {NavLink as Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
@@ -7,66 +17,62 @@ import {logoutUser} from "../actions/authentication";
 
 class Menu extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isMenuOpen: false,
+        };
+    }
+
+    toggleMenu = () => {
+        this.setState({
+            isOpen: !this.state.isMenuOpen
+        });
+    };
+
     logout = () => {
         this.props.logoutUser(this.props.history);
     };
 
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
     render() {
         return (
-            <Navbar color="light" light expand="md">
+            <Navbar expand="md" className="navbar-dark bg-dark">
                 <NavbarBrand href="/">SocialReact</NavbarBrand>
-                <NavbarToggler onClick={this.toggle}/>
-                <Collapse isOpen={this.state.isOpen} navbar>
+                <NavbarToggler onClick={this.toggleMenu}/>
+                <Collapse isOpen={this.state.isMenuOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink tag={Link} exact to={"/"} activeClassName="active">
-                                Home
-                            </NavLink>
-                        </NavItem>
-
                         {this.props.user ? (
                             <React.Fragment>
                                 <NavItem>
-                                    <NavLink tag={Link} exact to={"/a"} activeClassName="active">
-                                        {this.props.user.first_name} {this.props.user.last_name}
+                                    <NavLink tag={Link} exact to={"/"} activeClassName="active">
+                                        Accueil
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink
-                                        onClick={this.logout}
-                                        tag={Link} exact
-                                        to={"/"}
-                                        activeClassName="active">
-                                        Se déconnecter
-                                    </NavLink>
-                                </NavItem>
+                                <UncontrolledDropdown nav inNavbar>
+                                    <DropdownToggle nav style={{padding: '0 10px'}}>
+                                        <img className={"avatar"} src="https://picsum.photos/200" alt="My profile avatar"/>
+                                    </DropdownToggle>
+                                    <DropdownMenu right>
+                                        <DropdownItem>Paramètres</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem onClick={this.logout}>
+                                            Déconnexion
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </UncontrolledDropdown>
                             </React.Fragment>
 
                         ) : (
                             <React.Fragment>
                                 <NavItem>
                                     <NavLink tag={Link} exact to={"/login"} activeClassName="active">
-                                        Log in
+                                        Connexion
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} exact to={"/signup"} activeClassName="active">
-                                        Sign up
+                                        Inscription
                                     </NavLink>
                                 </NavItem>
                             </React.Fragment>

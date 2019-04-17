@@ -15,7 +15,7 @@ async function findByCredentials(email, password) {
         return user;
     }
 
-    throw new Error("Bad credentials");
+    return null;
 }
 
 async function getById(id) {

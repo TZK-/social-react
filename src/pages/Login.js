@@ -1,7 +1,7 @@
 import React from "react";
-import {Button, Col, Container, Label} from "reactstrap";
-import {NavLink, Redirect, withRouter} from "react-router-dom";
-import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Button, Col, Container, FormGroup, Row} from "reactstrap";
+import {NavLink, withRouter} from "react-router-dom";
+import {AvField, AvForm} from 'availity-reactstrap-validation';
 import {loginUser} from "../actions/authentication";
 import {connect} from "react-redux";
 
@@ -33,38 +33,43 @@ class Login extends React.Component {
     render() {
         return (
             <Container>
-                <h2>Log In</h2>
-                <AvForm method="post" className="form" onSubmit={this.handleSubmit}>
-                    <Col>
-                        <AvGroup>
-                            <Label for={"email"}>Email</Label>
-                            <AvInput
+                <Row>
+                    <Col className={"bg-light"} sm={12} md={{size: 6, offset: 3}} style={{padding: '30px'}}>
+                        <h2 className={"text-center"}>Connexion</h2>
+                        <AvForm method="post" className="form" onSubmit={this.handleSubmit}>
+                            <AvField
                                 type="email"
                                 name="email"
                                 id="email"
+                                label={"Email"}
                                 onChange={this.handleChange}
                                 validate={{required: true, email: true}}
                             />
-                        </AvGroup>
-                    </Col>
-                    <Col>
-                        <AvGroup>
-                            <Label for="password">Mot de passe</Label>
-                            <AvInput
+
+                            <AvField
                                 type="password"
                                 name="password"
                                 id="password"
+                                label={"Mot de passe"}
                                 placeholder="********"
                                 onChange={this.handleChange}
                                 validate={{required: true}}
                             />
-                        </AvGroup>
+
+                            <FormGroup className={"text-center"}>
+                                Pas encore de compte ? <NavLink to={"/signup"}>S'inscrire</NavLink>
+                                <br/>
+                                <NavLink to={"/signup"}>Mot de passe oublié ?</NavLink>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <div className="text-right">
+                                    <Button>Se connecter</Button>
+                                </div>
+                            </FormGroup>
+                        </AvForm>
                     </Col>
-                    <div>
-                        <NavLink to={"/signup"}>You do not have an account yet ? Sign up !</NavLink>
-                    </div>
-                    <Button>Submit</Button>
-                </AvForm>
+                </Row>
             </Container>
         );
     }

@@ -11,11 +11,13 @@ export default [
     {
         path: '/login',
         exact: true,
-        component: Login
+        component: Login,
+        unauthenticated: true,
     },
     {
         path: '/signup',
         exact: true,
-        component: Signup
+        component: Signup,
+        unauthenticated: true,
     }
 ];

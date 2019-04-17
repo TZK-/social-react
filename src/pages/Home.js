@@ -1,41 +1,44 @@
 import React from "react";
-import {Col, Container, Row} from "reactstrap";
-import {Redirect, withRouter} from "react-router-dom";
-import ProfileCard from "../components/Profile/ProfileCard";
+import {Button, Card, CardLink, CardText, CardTitle, Col, Container, Row} from "reactstrap";
+import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
 class Home extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            posts: [],
-            user: null
-        }
-    }
-
-    componentDidMount() {
-        // const posts = postService.getAllForUser(user);
-        // this.setState(posts.data);
-    }
-
+    // TODO get posts from API instead of hard coding
     render() {
-        if (!this.props.user) {
-            return (<Container/>);
-        }
-
         return (
             <Container>
                 <Row>
-                    <Col sm={3}>
-                        <ProfileCard user={this.props.user}/>
-                    </Col>
-                    <Col sm={11}>
-                        {this.state.posts.map(post => (
-                            {/*<PostCard post={post}/>*/}
-                        ))}
-                    </Col>
+                    {([1, 2, 3, 4, 5]).map((item, index) => (
+                        <Col sm={12} md={{size: 6, offset: 3}} key={index} style={{marginBottom: '25px'}}>
+                            <Card body>
+                                <CardTitle>Lorem Ipsum</CardTitle>
+                                <CardText className={"text-justify"}>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae justo vel sem
+                                    euismod interdum vel et nisi. Nunc ut nisl quam. Cras hendrerit eget ligula id
+                                    lacinia. Vestibulum nec dictum quam. Morbi non nisi a lorem fermentum finibus eget
+                                    sit amet felis. Fusce nec nulla quis leo feugiat ultrices. Aliquam at leo fringilla,
+                                    sagittis justo sit amet, mollis leo.<br/>
+
+                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit
+                                    amet, consectetur adipiscing elit. Ut ac nunc tristique, finibus orci eu, sodales
+                                    mauris. Donec tincidunt ex at purus feugiat, vitae luctus justo porta. Curabitur vel
+                                    gravida tortor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras
+                                    ut sapien ut neque tincidunt rhoncus vel eu quam.<br/>
+                                    Sed fermentum, lectus eget fringilla iaculis, augue dui consequat augue, quis
+                                    consequat dolor turpis sit amet elit. Integer urna justo, vestibulum pulvinar
+                                    egestas et, ullamcorper id mauris. Mauris ligula lacus, hendrerit id lacinia et,
+                                    efficitur vel urna. Nulla rutrum molestie metus, vitae rhoncus sapien laoreet a.
+                                    Mauris elementum, tortor ut viverra ultrices, nulla est vestibulum lacus, et cursus
+                                    urna nibh in risus. Cras viverra accumsan leo, eleifend ullamcorper metus tempor
+                                    quis. Integer vitae mi sagittis, condimentum nunc at, porttitor dolor. Suspendisse
+                                    dapibus sit amet ipsum a fringilla.
+                                </CardText>
+                                <CardLink className={"text-right"} href="#">{2*index} commentaire(s)</CardLink>
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
             </Container>
         );

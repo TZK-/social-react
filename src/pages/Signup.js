@@ -1,7 +1,7 @@
 import React from "react";
-import {Button, Col, Container, Label} from "reactstrap";
+import {Button, Col, Container, FormGroup, Row} from "reactstrap";
 import {NavLink, Redirect, withRouter} from "react-router-dom";
-import {AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {AvField, AvForm} from 'availity-reactstrap-validation';
 import {connect} from "react-redux";
 import {registerUser} from "../actions/authentication";
 
@@ -25,6 +25,7 @@ class Signup extends React.Component {
             first_name: '',
             last_name: '',
             password: '',
+            password_confirmation: ''
         };
     }
 
@@ -45,76 +46,93 @@ class Signup extends React.Component {
 
         return (
             <Container>
-                <h2>Sign up</h2>
-                <AvForm className="form" onSubmit={this.submit}>
-                    <Col>
-                        <AvGroup>
-                            <Label for={"first_name"}>First name</Label>
-                            <AvInput
-                                required
-                                type="text"
-                                name="first_name"
-                                id={"first_name"}
-                                value={this.state.first_name}
-                                onChange={this.changeHandler}
-                                validate={{
-                                    required: {value: true},
-                                }}
-                            />
-                        </AvGroup>
+                <Row>
+                    <Col className={"bg-light"} sm={12} md={{size: 6, offset: 3}} style={{padding: '30px'}}>
+                        <h2 className={"text-center"}>Inscription</h2>
+                        <AvForm className="form" onSubmit={this.submit} autocomplete={"off"}>
+                            <Col>
+                                <AvField
+                                    required
+                                    type="text"
+                                    name="first_name"
+                                    id={"first_name"}
+                                    label={"Prénom"}
+                                    value={this.state.first_name}
+                                    onChange={this.changeHandler}
+                                    validate={{
+                                        required: {value: true},
+                                    }}
+                                />
+                            </Col>
+                            <Col>
+                                <AvField
+                                    type="text"
+                                    name="last_name"
+                                    id={"last_name"}
+                                    label={"Nom"}
+                                    value={this.state.last_name}
+                                    onChange={this.changeHandler}
+                                    validate={{
+                                        required: {value: true},
+                                    }}
+                                />
+                            </Col>
+                            <Col>
+                                <AvField
+                                    type="email"
+                                    name="email"
+                                    id={"email"}
+                                    label={"Adresse E-Mail"}
+                                    value={this.state.email}
+                                    onChange={this.changeHandler}
+                                    validate={{
+                                        required: true,
+                                        email: true,
+                                    }}
+                                />
+                            </Col>
+                            <Col>
+                                <AvField
+                                    type="password"
+                                    name="password"
+                                    id={"password"}
+                                    label={"Mot de passe"}
+                                    value={this.state.password}
+                                    onChange={this.changeHandler}
+                                    validate={{
+                                        required: true,
+                                    }}
+                                />
+                            </Col>
+                            <Col>
+                                <AvField
+                                    type="password"
+                                    name="password_confirmation"
+                                    id={"password_confirmation"}
+                                    label={"Confirmation du mot de passe"}
+                                    value={this.state.password_confirmation}
+                                    onChange={this.changeHandler}
+                                    validate={{
+                                        required: true,
+                                        match: {
+                                            value: 'password'
+                                        }
+                                    }}
+                                />
+                            </Col>
+
+                            <FormGroup className={"text-center"}>
+                                Vous avec déjà un compte ? <NavLink to={"/signup"}>Se connecter</NavLink>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <div className="text-right">
+                                    <Button color={"primary"}>Valider</Button>
+                                </div>
+                            </FormGroup>
+                        </AvForm>
                     </Col>
-                    <Col>
-                        <AvGroup>
-                            <Label for={"last_name"}>Last name</Label>
-                            <AvInput
-                                type="text"
-                                name="last_name"
-                                id={"last_name"}
-                                value={this.state.last_name}
-                                onChange={this.changeHandler}
-                                validate={{
-                                    required: {value: true},
-                                }}
-                            />
-                        </AvGroup>
-                    </Col>
-                    <Col>
-                        <AvGroup>
-                            <Label for={"email"}>Email</Label>
-                            <AvInput
-                                type="email"
-                                name="email"
-                                id={"email"}
-                                value={this.state.email}
-                                onChange={this.changeHandler}
-                                validate={{
-                                    required: true,
-                                    email: true,
-                                }}
-                            />
-                        </AvGroup>
-                    </Col>
-                    <Col>
-                        <AvGroup>
-                            <Label for="password">Password</Label>
-                            <AvInput
-                                type="password"
-                                name="password"
-                                placeholder="********"
-                                id={"password"}
-                                value={this.state.password}
-                                onChange={this.changeHandler}
-                                validate={{
-                                    required: true
-                                }}
-                            />
-                        </AvGroup>
-                    </Col>
-                    <div>
-                        <NavLink to={"/login"}>You already have an account ? Log in !</NavLink>
-                    </div>
-                    <Button>Submit</Button>
-                </AvForm>
+                </Row>
             </Container>
         );
     }
@@ -122,4 +140,4 @@ class Signup extends React.Component {
 
 const mapStateToProps = state => state;
 
-export default withRouter(connect(mapStateToProps, {registerUser})(Signup))
+export default withRouter(connect(mapStateToProps, {registerUser})(Signup));
