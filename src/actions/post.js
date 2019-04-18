@@ -19,7 +19,6 @@ export const createPost = (post, user) => dispatch => {
 
 export const fetchPosts = user => dispatch => {
     Api.get(`users/${user.id}/posts`).then(response => {
-        console.log(response.data);
         dispatch({
             type: POSTS_FETCHED,
             payload: response.data
