@@ -1,7 +1,7 @@
 const Post = require('../models/post.model');
 
 async function getAll(userId) {
-    return await Post.find({'author': userId})
+    return await Post.find({'author': userId}).sort('-created_at')
         .populate('author')
         .select();
 }
