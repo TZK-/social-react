@@ -22,8 +22,8 @@ class Home extends React.Component {
                 </Row>
 
                 {this.props.posts.map(post => (
-                    <Row>
-                        <Col sm={12}>
+                    <Row key={post.id} style={{marginBottom: '20px'}}>
+                        <Col sm={12} md={{size: 8, offset: 2}}>
                             <Publication post={post}/>
                         </Col>
                     </Row>

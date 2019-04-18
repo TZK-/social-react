@@ -10,7 +10,7 @@ export default function (state = initialState, action) {
             const {posts} = state;
 
             return Object.assign({}, state, {
-                posts: posts.unshift(action.payload)
+                posts: [action.payload, ...posts]
             });
         case POSTS_FETCHED:
             return Object.assign({}, state, {

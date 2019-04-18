@@ -1,8 +1,8 @@
 import {GET_ERRORS, POST_CREATED, POSTS_FETCHED} from './index';
 import Api from '../Api';
 
-export const createPost = (post, user) => dispatch => {
-    Api.post('posts', {}, user)
+export const createPost = (post) => dispatch => {
+    Api.post('posts', {}, post)
         .then(response => {
             dispatch({
                 type: POST_CREATED,

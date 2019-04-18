@@ -34,7 +34,8 @@ async function create(params) {
     const user = new User(params);
     user.password = bcrypt.hashSync(user.password);
 
-    return user.save();
+    await user.save();
+    return user;
 }
 
 async function edit(user, data) {

@@ -13,7 +13,9 @@ class PublicationForm extends React.Component {
     };
 
     submit = () => {
-        this.props.createPost(this.state, this.props.user);
+        this.props.createPost({
+            content: this.state.content
+        });
     };
 
     toggle = () => {
@@ -42,12 +44,17 @@ class PublicationForm extends React.Component {
         let button = null;
         if (this.state.openEditor) {
             button = (
-                <FormGroup style={{marginTop: '10px', marginBottom: 0}} className={"action-buttons float-right"}>
-                    <span className={"clickable cancel-action"} onClick={this.cancel} style={{marginRight: '10px',}}>
+                <FormGroup className={"action-buttons float-right"}>
+                    <span
+                        className={"clickable cancel-action"}
+                        onClick={this.cancel}>
                         Annuler
                     </span>
 
-                    <Button color="danger" size="sm" disabled={this.state.content.length === 0}
+                    <Button color="danger"
+                            size="sm"
+                            disabled={this.state.content.length === 0}
+                            onClick={this.submit}
                             className={"btn-rounded"}>
                         Publier !
                     </Button>

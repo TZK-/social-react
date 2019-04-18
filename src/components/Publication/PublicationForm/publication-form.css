@@ -19,8 +19,11 @@
 
 .action-buttons {
     color: #2f2f2f;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 .cancel-action {
     text-decoration: underline;
+    margin-right: 10px;
 }

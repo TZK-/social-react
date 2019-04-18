@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
+import Moment from "react-moment";
 
 class ProfileCard extends React.Component {
 
@@ -19,7 +20,12 @@ class ProfileCard extends React.Component {
                          alt="Card image cap"/>
                 <CardBody>
                     <CardTitle>{this.props.user.first_name} {this.props.user.last_name}</CardTitle>
-                    <CardText>Some quick example text</CardText>
+                    <CardText>
+                        Inscrit
+                        <Moment tz={"Europe/Paris"} fromNow>
+                            {this.props.user.created_at}
+                        </Moment>
+                    </CardText>
                     {true ? (
                         <Button onClick={this.sendFriendRequest}>Demander en ami</Button>
                     ) : ''}

@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, CardBody, CardFooter, CardHeader, CardLink, CardText, CardTitle, Tooltip} from "reactstrap";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import PropTypes from 'prop-types'
 import './publication.css';
 import Moment from "react-moment";
@@ -26,15 +26,26 @@ class Publication extends React.Component {
             <Card>
                 <CardHeader>
                     <img className={"avatar"} src={this.props.post.author.avatar} alt={userName + " avatar"}/>
-                    <div className={"username"}>{userName}</div>
+                    <div className={"username"}>
+                        <Link to={"/users/" + this.props.post.author.id}>
+                            {userName}
+                        </Link>
+                    </div>
                     <div className={"date"}>
                         <small>
-                            <Tooltip placement="right" isOpen={this.state.tooltipOpen} target={"tooltip" + this.props.post.id}
-                                     toggle={this.toggleTooltip}>
+                            <Tooltip
+                                placement="right"
+                                target={"tooltip" + this.props.post.id}
+                                isOpen={this.state.tooltipOpen}
+                                toggle={this.toggleTooltip}>
                                 Le <Moment format="MM/DD/YYYY à HH:mm" tz={"Europe/Paris"}/>
                             </Tooltip>
-                            <Moment fromNow tz={"Europe/Paris"}
-                                    id={"tooltip" + this.props.post.id}>{this.props.post.created_at}</Moment>
+                            <Moment
+                                fromNow
+                                tz={"Europe/Paris"}
+                                id={"tooltip" + this.props.post.id}>
+                                {this.props.post.created_at}
+                            </Moment>
                         </small>
                     </div>
                 </CardHeader>
