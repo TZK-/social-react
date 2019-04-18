@@ -1,6 +1,5 @@
-import {POST_CREATED} from '../actions';
+import {POST_CREATED, POSTS_FETCHED} from '../actions';
 
-// TODO Find posts with API for the given user (include friend posts)
 const initialState = {
     posts: []
 };
@@ -12,6 +11,10 @@ export default function (state = initialState, action) {
 
             return Object.assign({}, state, {
                 posts: posts.unshift(action.payload)
+            });
+        case POSTS_FETCHED:
+            return Object.assign({}, state, {
+                posts: action.payload
             });
         default:
             return state;

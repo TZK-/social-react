@@ -1,4 +1,4 @@
-import {GET_ERRORS, POST_CREATED} from './index';
+import {GET_ERRORS, POST_CREATED, POSTS_FETCHED} from './index';
 import Api from '../Api';
 
 export const createPost = (post, user) => dispatch => {
@@ -15,4 +15,14 @@ export const createPost = (post, user) => dispatch => {
                 payload: {message: e.message, code: e.status}
             });
         });
+};
+
+export const fetchPosts = user => dispatch => {
+    Api.get(`users/${user.id}/posts`).then(response => {
+        console.log(response.data);
+        dispatch({
+            type: POSTS_FETCHED,
+            payload: response.data
+        });
+    });
 };
