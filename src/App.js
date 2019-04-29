@@ -6,6 +6,8 @@ import routes from './Routes';
 import {Provider} from 'react-redux';
 import store from './store';
 import PrivateRoute from "./components/Route/PrivateRoute";
+import Toasts from "./components/Toasts/Toasts";
+import {Container} from "reactstrap";
 
 class App extends Component {
     static renderRoutes() {
@@ -44,6 +46,9 @@ class App extends Component {
                         {App.renderRoutes()}
                     </div>
                 </Router>
+                <div style={{position: 'absolute', top: 60, right: 7}}>
+                    <Toasts/>
+                </div>
             </Provider>
         );
     }

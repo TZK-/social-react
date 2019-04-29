@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile/Profile";
 import ProfileEdit from "./pages/Profile/ProfileEdit";
+import ResetPassword from "./pages/ResetPassword";
 
 export default [
     {
@@ -30,6 +31,12 @@ export default [
         path: '/signup',
         exact: true,
         component: Signup,
+        unauthenticated: true,
+    },
+    {
+        path: '/reset-password',
+        exact: true,
+        component: ResetPassword,
         unauthenticated: true,
     }
 ];

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import PublicationForm from "../components/Publication/PublicationForm/PublicationForm";
 import {fetchPosts} from "../actions/post";
 import Publication from "../components/Publication/Publication";
+import Toasts from "../components/Toasts/Toasts";
 
 class Home extends React.Component {
 
@@ -15,6 +16,7 @@ class Home extends React.Component {
     render() {
         return (
             <Container>
+
                 <Row style={{marginBottom: '20px'}}>
                     <Col sm={12} md={{size: 8, offset: 2}}>
                         <PublicationForm/>

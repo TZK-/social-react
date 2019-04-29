@@ -58,7 +58,7 @@ class Login extends React.Component {
                             <FormGroup className={"text-center"}>
                                 Pas encore de compte ? <NavLink to={"/signup"}>S'inscrire</NavLink>
                                 <br/>
-                                <NavLink to={"/signup"}>Mot de passe oublié ?</NavLink>
+                                <NavLink to={"/reset-password"}>Mot de passe oublié ?</NavLink>
                             </FormGroup>
 
                             <FormGroup>
