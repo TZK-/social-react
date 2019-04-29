@@ -1,4 +1,4 @@
-import {AUTH_SET_USER, GET_ERRORS} from './index';
+import {AUTH_SET_USER, HTTP_ERROR} from './index';
 import Api from '../Api';
 import {setAuthToken} from "../helpers/auth";
 
@@ -7,8 +7,8 @@ export const registerUser = (user, history) => dispatch => {
         .then(() => history.push('/login'))
         .catch(e => {
             dispatch({
-                type: GET_ERRORS,
-                payload: {message: e.message, code: e.status}
+                type: HTTP_ERROR,
+                payload: e
             });
         });
 };
@@ -29,8 +29,8 @@ export const loginUser = (credentials, history) => dispatch => {
         })
         .catch(e => {
             dispatch({
-                type: GET_ERRORS,
-                payload: {message: e.message, code: e.status}
+                type: HTTP_ERROR,
+                payload: e
             });
         });
 };

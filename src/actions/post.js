@@ -1,4 +1,4 @@
-import {GET_ERRORS, POST_CREATED, POSTS_FETCHED} from './index';
+import {HTTP_ERROR, POST_CREATED, POSTS_FETCHED} from './index';
 import Api from '../Api';
 
 export const createPost = (post) => dispatch => {
@@ -11,8 +11,8 @@ export const createPost = (post) => dispatch => {
         })
         .catch(e => {
             dispatch({
-                type: GET_ERRORS,
-                payload: {message: e.message, code: e.status}
+                type: HTTP_ERROR,
+                payload: e
             });
         });
 };
@@ -22,6 +22,11 @@ export const fetchPosts = user => dispatch => {
         dispatch({
             type: POSTS_FETCHED,
             payload: response.data
+        });
+    }).catch(e => {
+        dispatch({
+            type: HTTP_ERROR,
+            payload: e
         });
     });
 };
