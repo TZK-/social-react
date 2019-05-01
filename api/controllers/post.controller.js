@@ -2,16 +2,14 @@ const {postService} = require("../services/post.service");
 const express = require('express');
 const router = express.Router();
 const {gate} = require('../passport');
-const {unprocessable} = require('../helpers');
+const {validate} = require('../helpers');
+const {check} = require('express-validator/check');
 
 async function create(req, res, next) {
-    if (!req.body.content) {
-        unprocessable("The content is required");
-    }
-
-    const post = await postService.create(req.user, req.body);
-
-    res.json(post);
+    validate(req)
+        .then(() => postService.create(req.user, req.body))
+        .then(post => res.json(post))
+        .catch(e => next(e));
 }
 
 async function getAllForUser(req, res, next) {
@@ -24,6 +22,8 @@ async function getAllForUser(req, res, next) {
 }
 
 router.get('/users/:id/posts', gate, getAllForUser);
-router.post('/posts', gate, create);
+router.post('/posts', [
+    check('content').not().isEmpty().withMessage('Field cannot be empty')
+], gate, create);
 
 module.exports = router;
