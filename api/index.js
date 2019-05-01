@@ -7,6 +7,7 @@ const {notFound} = require("./helpers");
 const {passport} = require('./passport');
 const routes = require('./routes');
 const app = express();
+const {validationResult} = require('express-validator/check');
 
 app.use(cors());
 app.use(passport.initialize());
@@ -27,6 +28,7 @@ app.use((err, req, res, next) => {
     res.json({
         error: {
             message: err.message,
+            data: err.data
         }
     });
 });

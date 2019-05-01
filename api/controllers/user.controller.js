@@ -1,16 +1,15 @@
-const {forbidden} = require("../helpers");
+const {forbidden, validate} = require("../helpers");
 const {userService} = require("../services/user.service");
 const express = require('express');
 const {gate} = require('../passport');
 const router = express.Router();
+const {check} = require('express-validator/check');
 
-async function register(req, res, next) {
-    try {
-        await userService.create(req.body);
-        res.json({})
-    } catch (e) {
-        next(e);
-    }
+function register(req, res, next) {
+    validate(req)
+        .then(() => userService.create(req.body))
+        .then(() => res.send({}))
+        .catch(e => next(e));
 }
 
 async function getAll(req, res, next) {
@@ -44,9 +43,31 @@ async function edit(req, res, next) {
     }
 }
 
-router.post('/users', register);
+router.post('/users', [
+    check('email')
+        .not().isEmpty().withMessage('Cannot be empty')
+        .isEmail().withMessage('Not a valid email'),
+
+    check('first_name')
+        .not().isEmpty().withMessage('Cannot be empty')
+        .isAlpha().withMessage('Not a valid string'),
+
+    check('last_name')
+        .not().isEmpty().withMessage('Cannot be empty')
+        .isAlpha().withMessage('Not a valid string'),
+
+    check('password')
+        .not().isEmpty().withMessage('Cannot be empty')
+        .isLength({min:5}).withMessage('Must be at least 5 characters'),
+
+    check('password_confirmation')
+        .not().isEmpty().withMessage('Cannot be empty')
+], register);
+
 router.get('/users', gate, getAll);
+
 router.get('/users/:id', gate, show);
+
 router.put('/users/:id', gate, edit);
 
 module.exports = router;
