@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
-    content: {
-        type: String,
-        required: true
-    },
-    author: {
+    requester: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    recipient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    accepted: {
+        type: Boolean
     }
 }, {timestamp: true});
 
 schema.set('toJSON', {virtuals: true});
 
-module.exports = mongoose.model('Post', schema);
+module.exports = mongoose.model('Friend', schema);

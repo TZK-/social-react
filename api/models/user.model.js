@@ -19,11 +19,11 @@ const schema = new mongoose.Schema({
         required: true,
         select: false
     },
-    created_at: {
-        type: Date,
-        default: Date.now()
-    },
-});
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Friend'
+    }]
+}, {timestamp: true});
 
 schema.pre('init', (user) => {
     user.avatar = 'https://picsum.photos/200';

@@ -8,7 +8,7 @@ const {check} = require('express-validator/check');
 async function create(req, res, next) {
     validate(req)
         .then(() => postService.create(req.user, req.body))
-        .then(post => res.json(post))
+        .then(post => res.status(201).json(post))
         .catch(e => next(e));
 }
 

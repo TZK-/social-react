@@ -1,6 +1,5 @@
-const jwt = require("jsonwebtoken");
 const {userService} = require("../services/user.service");
-const {unauthenticated, unprocessable} = require("../helpers");
+const {unprocessable} = require("../helpers");
 
 const express = require('express');
 const router = express.Router();
