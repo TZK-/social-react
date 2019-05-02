@@ -59,7 +59,7 @@ async function sendRequest(requesterId, recipientId) {
 
     return {
         _id: friendRequest._id,
-        friend: friendRequest.populate('recipient', '-friends').execPopulate()
+        friend: (await friendRequest.populate('recipient', '-friends').execPopulate()).recipient
     };
 }
 

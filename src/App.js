@@ -3,11 +3,10 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import Menu from './components/Menu';
 import './App.css';
 import routes from './Routes';
-import {Provider} from 'react-redux';
-import store from './store';
+import {connect} from 'react-redux';
 import PrivateRoute from "./components/Route/PrivateRoute";
-import Toasts from "./components/Toasts/Toasts";
-import {Container} from "reactstrap";
+import Friends from "./components/Friends/Friends";
+import {Col, Container, Row} from "reactstrap";
 
 class App extends Component {
     static renderRoutes() {
@@ -36,22 +35,37 @@ class App extends Component {
 
     render() {
         return (
-            <Provider store={store}>
-                <Router>
-                    <div>
-                        <header>
-                            <Menu/>
-                        </header>
+            <Router>
+                <div>
+                    <header>
+                        <Menu/>
+                    </header>
 
-                        {App.renderRoutes()}
-                    </div>
-                </Router>
-                <div style={{position: 'absolute', top: 60, right: 7}}>
-                    <Toasts/>
+                    <Container>
+                        {this.props.isAuthenticated ? (
+                            <Row>
+                                <Col sm={10}>
+                                    {App.renderRoutes()}
+                                </Col>
+
+                                <Col sm={2}>
+                                    <Friends/>
+                                </Col>
+                            </Row>
+                        ) : (
+                            <Col sm={12}>
+                                {App.renderRoutes()}
+                            </Col>
+                        )}
+                    </Container>
                 </div>
-            </Provider>
+            </Router>
         );
     }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(App);

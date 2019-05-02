@@ -3,10 +3,12 @@ import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
 import postReducer from "./postReducer";
 import toastReducer from "./toastReducer";
+import friendReducer from "./friendReducer";
 
 export default combineReducers({
     errors: errorReducer,
     auth: authReducer,
     post: postReducer,
-    toasts: toastReducer
+    toasts: toastReducer,
+    friends: friendReducer
 });

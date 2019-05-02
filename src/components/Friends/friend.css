@@ -1,0 +1,9 @@
+.connected {
+    background: #1e9a00 none repeat scroll 0% 0%;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-bottom: 1px;
+    margin-right: 3px;
+}

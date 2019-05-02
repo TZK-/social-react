@@ -18,14 +18,14 @@ class Home extends React.Component {
             <Container>
 
                 <Row style={{marginBottom: '20px'}}>
-                    <Col sm={12} md={{size: 8, offset: 2}}>
+                    <Col sm={12}>
                         <PublicationForm/>
                     </Col>
                 </Row>
 
                 {this.props.posts.map(post => (
                     <Row key={post.id} style={{marginBottom: '20px'}}>
-                        <Col sm={12} md={{size: 8, offset: 2}}>
+                        <Col sm={12}>
                             <Publication post={post}/>
                         </Col>
                     </Row>

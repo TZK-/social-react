@@ -6,7 +6,7 @@ import Moment from "react-moment";
 import {connect} from "react-redux";
 import {denyRequest, sendRequest} from "../../actions/friend";
 
-class ProfileCard extends React.Component {
+class FriendButton extends React.Component {
 
     sendFriendRequest = () => {
         this.props.sendRequest(this.props.user);
@@ -28,34 +28,16 @@ class ProfileCard extends React.Component {
             }
         }
 
-        return (
-            <Card>
-                <CardImg top height="200px"
-                         src="https://www.philippe-albanel.com/stockphotos/13886-200"
-                         alt="Card image cap"/>
-                <CardBody>
-                    <CardTitle>{this.props.user.first_name} {this.props.user.last_name}</CardTitle>
-                    <CardText>
-                        Inscrit
-                        <Moment tz={"Europe/Paris"} fromNow>
-                            {this.props.user.created_at}
-                        </Moment>
-                    </CardText>
-                    {button}
-                </CardBody>
-            </Card>
-        );
+        return ({button});
     }
 }
 
-
-ProfileCard.propTypes = {
+FriendButton.propTypes = {
     user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    friends: state.friends,
     auth: state.auth
 });
 
-export default withRouter(connect(mapStateToProps, {sendRequest, denyRequest})(ProfileCard));
+export default connect(mapStateToProps)(FriendButton);

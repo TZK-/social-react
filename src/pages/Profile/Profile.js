@@ -15,21 +15,34 @@ class Profile extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        const {match: {params}} = this.props;
-
-        //TODO Handle 404
-        const {data: user} = await Api.get('users/' + params.id);
-        const {data: posts} = await Api.get(`users/${params.id}/posts`);
+    async initState(userId) {
+        const {data: user} = await Api.get('users/' + userId);
+        const {data: posts} = await Api.get(`users/${userId}/posts`);
 
         this.setState({
             user: user,
             posts: posts
-        })
+        });
+    }
+
+
+    async componentDidMount() {
+        const {match: {params}} = this.props;
+
+        return this.initState(params.id);
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps === undefined) {
+            return false
+        }
+
+        if (this.state.user._id !== this.props.match.params.id) {
+            return this.initState(this.props.match.params.id);
+        }
     }
 
     render() {
-        // TODO add loader
         if (!this.state.user) {
             return (<div/>);
         }
