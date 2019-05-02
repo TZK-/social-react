@@ -2,6 +2,34 @@ const Friend = require('../models/friend.model');
 const NotAllowedError = require('../exceptions/NotAllowedError');
 const NotExistingError = require('../exceptions/NotExistingError');
 
+async function getFriends(user) {
+    const requests = await Friend.find({
+        $or: [
+            {requester: user._id},
+            {recipient: user._id}
+        ]
+    }).populate('requester', '-friends').populate('recipient', '-friends');
+
+    const friends = requests.map(request => {
+        const friend = request.requester._id === user._id
+            ? request.requester
+            : request.recipient;
+
+        return {
+            _id: request._id,
+            accepted: request.accepted,
+            friend
+        };
+    });
+
+    const format = f => ({_id: f._id, friend: f.friend});
+
+    return {
+        accepted: friends.filter(f => f.accepted).map(format),
+        pending: friends.filter(f => !f.accepted).map(format),
+    }
+}
+
 async function sendRequest(requesterId, recipientId) {
     if (requesterId === recipientId) {
         throw new NotAllowedError('You cannot request yourself as a friend');
@@ -29,14 +57,18 @@ async function sendRequest(requesterId, recipientId) {
 
     await friendRequest.save();
 
-    return friendRequest
-        .populate('requester', '-friends')
-        .populate('recipient', '-friends')
-        .execPopulate();
+    return {
+        _id: friendRequest._id,
+        friend: friendRequest.populate('recipient', '-friends').execPopulate()
+    };
 }
 
-async function accept(requestId, recipientId) {
-    const request = await Friend.findOne({_id: requestId, accepted: false});
+async function accept(recipientId, requesterId) {
+    const request = await Friend.findOne({
+        requester: requesterId,
+        recipient: recipientId,
+        accepted: false
+    });
 
     if (!request) {
         throw new NotExistingError("No friend request found");
@@ -47,16 +79,24 @@ async function accept(requestId, recipientId) {
     }
 
     request.accepted = true;
-    return request.save();
+    await request.save();
+
+    return {
+        _id: request._id,
+        friend: request.populate('requester', '-friends').execPopulate()
+    };
 }
 
-function deny(requestId, recipientId) {
-    // TODO check if user has right to handle request
-    return Friend.findOneAndDelete({_id: requestId});
+function deny(requesterId, recipientId) {
+    return Friend.findOneAndDelete({
+        requester: requesterId,
+        recipient: recipientId,
+    });
 }
 
 module.exports.friendService = {
     sendRequest,
     accept,
-    deny
+    deny,
+    getFriends
 };

@@ -9,7 +9,7 @@ async function getAll() {
 }
 
 async function findByCredentials(email, password) {
-    const user = await User.findOne({email}).select('+password');
+    const user = await User.findOne({email}).select(['+password', '-friends']);
     if (user != null && bcrypt.compareSync(password, user.password)) {
         // TODO be sure it remove the password
         delete user.password;

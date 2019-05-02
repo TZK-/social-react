@@ -8,7 +8,12 @@ const {passport} = require('./passport');
 const routes = require('./routes');
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}));
 app.use(passport.initialize());
 
 app.use(bodyParser.urlencoded({extended: true}));
