@@ -40,7 +40,8 @@ app.use((err, req, res, next) => {
     });
 });
 
-require('./socket')(io);
+const socket = require('./socket/index')(http);
+require('./socket/listeners')(socket);
 
 http.listen(config.express_port, () => {
     console.log('Example app listening on *:' + config.express_port);
