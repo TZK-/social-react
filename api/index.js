@@ -7,6 +7,8 @@ const {notFound} = require("./helpers");
 const {passport} = require('./passport');
 const routes = require('./routes');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(cors({
     "origin": "*",
@@ -38,8 +40,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(config.express_port, function () {
-    console.log('Example app listening on port http://localhost:' + config.express_port);
+require('./socket')(io);
+
+http.listen(config.express_port, () => {
+    console.log('Example app listening on *:' + config.express_port);
 });
 
 mongoose.connect(config.mongodb_uri, {
