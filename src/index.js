@@ -6,7 +6,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'moment/locale/fr';
 import 'moment-timezone';
-import socket from './socket';
 
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {

@@ -14,19 +14,21 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case AUTH_SET_USER:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 isAuthenticated: !!action.payload,
                 user: action.payload
-            });
+            };
 
         case HTTP_ERROR:
             const status = action.payload.response.status;
             const isAuthenticated = status === 401 ? false : state.isAuthenticated;
 
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 isAuthenticated: isAuthenticated,
                 user: isAuthenticated ? state.user : null
-            });
+            };
 
         default:
             return state;

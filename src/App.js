@@ -8,6 +8,9 @@ import PrivateRoute from "./components/Route/PrivateRoute";
 import Friends from "./components/Friends/Friends";
 import {Col, Container, Row} from "reactstrap";
 
+import socket from './socket';
+import {userConnected, userDisconnected} from "./actions/friend";
+
 class App extends Component {
     static renderRoutes() {
         return routes.map((route, index) => {
@@ -33,7 +36,25 @@ class App extends Component {
         });
     }
 
+    constructor(props) {
+        super(props);
+        socket.on('user_connected', userId => {
+            this.props.userConnected(userId);
+        });
+
+        socket.on('disconnect', userId => {
+            this.props.userDisconnected(userId);
+        });
+    }
+
     render() {
+        if (this.props.user !== null) {
+            socket.emit('user_connected', this.props.user._id);
+            socket.on('disconnect', userId => {
+
+            })
+        }
+
         return (
             <Router>
                 <div>
@@ -65,7 +86,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {userConnected, userDisconnected})(App);

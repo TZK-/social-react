@@ -7,8 +7,6 @@ function write(authorId, recipientId, content) {
         recipient: recipientId,
         content
     });
-
-    
 }
 
 module.exports.friendService = {

@@ -1,4 +1,11 @@
-import {FRIEND_ADD, FRIEND_ACCEPTED, FRIEND_FETCHED, FRIEND_REMOVE} from '../actions';
+import {
+    FRIEND_ADD,
+    FRIEND_ACCEPTED,
+    FRIEND_FETCHED,
+    FRIEND_REMOVE,
+    FRIEND_CONNECTED,
+    FRIEND_DISCONNECTED
+} from '../actions';
 
 const initialState = {
     accepted: [],
@@ -11,21 +18,71 @@ export default function (state = initialState, action) {
             return action.payload;
 
         case FRIEND_ADD:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 pending: [...state.pending, action.payload]
-            });
+            };
 
         case FRIEND_REMOVE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 pending: state.pending.filter(({friend}) => friend._id !== action.payload._id),
                 accepted: state.accepted.filter(({friend}) => friend._id !== action.payload._id)
-            });
+            };
 
         case FRIEND_ACCEPTED:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 pending: state.pending.filter(r => r._id !== action.payload._id),
                 accepted: [...state.accepted, action.payload]
-            });
+            };
+
+        case FRIEND_CONNECTED: {
+            const connectedUser = state.accepted.find(r => r.friend._id === action.payload);
+
+            if (!connectedUser) {
+                return state;
+            }
+
+            return {
+                ...state,
+                accepted: [
+                    ...state.accepted.filter(r => r.friend._id !== action.payload),
+                    {
+                        ...connectedUser,
+                        friend: {
+                            ...connectedUser.friend,
+                            connected: true
+                        }
+                    }
+                ]
+            };
+        }
+
+        case FRIEND_DISCONNECTED: {
+            const connectedUser = state.accepted
+                .filter(r => r.friend.connected)
+                .find(r => r.friend._id === action.payload);
+
+            if (!connectedUser) {
+                return state;
+            }
+
+            return {
+                ...state,
+                accepted: [
+                    ...state.accepted.filter(r => r.friend._id !== action.payload),
+                    {
+                        ...connectedUser,
+                        friend: {
+                            ...connectedUser.friend,
+                            connected: false
+                        }
+                    }
+                ]
+            };
+        }
+
         default:
             return state;
     }

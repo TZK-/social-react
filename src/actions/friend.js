@@ -1,4 +1,12 @@
-import {FRIEND_ACCEPTED, FRIEND_ADD, FRIEND_FETCHED, FRIEND_REMOVE, HTTP_ERROR} from './index';
+import {
+    FRIEND_ACCEPTED,
+    FRIEND_ADD,
+    FRIEND_FETCHED,
+    FRIEND_REMOVE,
+    HTTP_ERROR,
+    FRIEND_CONNECTED,
+    FRIEND_DISCONNECTED
+} from './index';
 
 import Api from '../Api';
 
@@ -61,5 +69,19 @@ export const fetchFriends = () => dispatch => {
             type: HTTP_ERROR,
             payload: e
         });
-    })
+    });
+};
+
+export const userConnected = userId => dispatch => {
+    dispatch({
+        type: FRIEND_CONNECTED,
+        payload: userId
+    });
+};
+
+export const userDisconnected = userId => dispatch => {
+    dispatch({
+        type: FRIEND_DISCONNECTED,
+        payload: userId
+    });
 };
