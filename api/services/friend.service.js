@@ -11,9 +11,9 @@ async function getFriends(user) {
     }).populate('requester', '-friends').populate('recipient', '-friends');
 
     const friends = requests.map(request => {
-        const friend = request.requester._id === user._id
-            ? request.requester
-            : request.recipient;
+        const friend = request.requester._id.equals(user._id)
+            ? request.recipient
+            : request.requester;
 
         return {
             _id: request._id,
@@ -31,7 +31,7 @@ async function getFriends(user) {
 }
 
 async function sendRequest(requesterId, recipientId) {
-    if (requesterId === recipientId) {
+    if (requesterId.equals(recipientId)) {
         throw new NotAllowedError('You cannot request yourself as a friend');
     }
 
@@ -63,7 +63,7 @@ async function sendRequest(requesterId, recipientId) {
     };
 }
 
-async function accept(recipientId, requesterId) {
+async function accept(requesterId, recipientId) {
     const request = await Friend.findOne({
         requester: requesterId,
         recipient: recipientId,
@@ -88,10 +88,12 @@ async function accept(recipientId, requesterId) {
 }
 
 function deny(requesterId, recipientId) {
-    return Friend.findOneAndDelete({
-        requester: requesterId,
-        recipient: recipientId,
-    });
+    return Friend.find({
+        $or: [
+            {requester: requesterId, recipient: recipientId},
+            {requester: recipientId, recipient: requesterId}
+        ]
+    }).remove();
 }
 
 module.exports.friendService = {

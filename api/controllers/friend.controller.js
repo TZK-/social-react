@@ -14,7 +14,7 @@ async function request(req, res, next) {
 
 async function accept(req, res, next) {
     try {
-        await friendService.accept(req.user._id, req.params.user);
+        await friendService.accept(req.params.user, req.user._id);
         res.status(204).json({});
     } catch (e) {
         next(e);
@@ -23,7 +23,7 @@ async function accept(req, res, next) {
 
 async function deny(req, res, next) {
     try {
-        await friendService.deny(req.user._id, req.params.user);
+        await friendService.deny(req.params.user, req.user._id);
         res.status(204).json({});
     } catch (e) {
         next(e);
@@ -32,7 +32,7 @@ async function deny(req, res, next) {
 
 async function getAll(req, res, next) {
     try {
-        const friends = await friendService.getFriends(req.user._id);
+        const friends = await friendService.getFriends(req.user);
         res.status(200).json(friends);
     } catch (e) {
         next(e);

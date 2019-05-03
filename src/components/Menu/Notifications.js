@@ -6,11 +6,11 @@ import {acceptRequest, denyRequest} from "../../actions/friend";
 
 class Notifications extends React.Component {
     accept = request => {
-        this.props.acceptRequest(request.friend);
+        this.props.acceptRequest(request);
     };
 
     deny = request => {
-        this.props.denyRequest(request.friend);
+        this.props.denyRequest(request);
     };
 
     render() {

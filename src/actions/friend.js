@@ -18,12 +18,12 @@ export const sendRequest = friend => dispatch => {
         });
 };
 
-export const acceptRequest = friend => dispatch => {
-    Api.post(`friends/${friend._id}/accept`)
+export const acceptRequest = request => dispatch => {
+    Api.post(`friends/${request.friend._id}/accept`)
         .then(() => {
             dispatch({
                 type: FRIEND_ACCEPTED,
-                payload: friend
+                payload: request
             })
         })
         .catch(e => {
@@ -34,12 +34,12 @@ export const acceptRequest = friend => dispatch => {
         })
 };
 
-export const denyRequest = friend => dispatch => {
-    Api.post(`friends/${friend._id}/deny`)
+export const denyRequest = user => dispatch => {
+    Api.post(`friends/${user._id}/deny`)
         .then(() => {
             dispatch({
                 type: FRIEND_REMOVE,
-                payload: friend
+                payload: user
             })
         })
         .catch(e => {

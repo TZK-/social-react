@@ -1,8 +1,6 @@
 import React from 'react';
-import {Button, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
-import {withRouter} from "react-router-dom";
+import {Button} from "reactstrap";
 import PropTypes from "prop-types";
-import Moment from "react-moment";
 import {connect} from "react-redux";
 import {denyRequest, sendRequest} from "../../actions/friend";
 
