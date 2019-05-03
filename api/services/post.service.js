@@ -1,9 +1,35 @@
 const Post = require('../models/post.model');
+const Friend = require('../models/friend.model');
 
 async function getAll(userId) {
-    return await Post.find({}).sort('-created_at')
+    return await Post.find({author: userId}).sort('-created_at')
         .populate('author')
         .select();
+}
+
+async function getFeed(userId) {
+    const requests = await Friend.find({
+        $or: [
+            {requester: userId},
+            {recipient: userId}
+        ],
+        accepted: true
+    });
+
+    const authorIdx = requests
+        .map(r => r.requester._id)
+        .concat(requests.map(r => r.recipient._id));
+
+    return await Post.find({
+        $or: [
+            {author: userId},
+            {
+                author: {
+                    $in: authorIdx
+                }
+            }
+        ]
+    }).populate('author').sort('-created');
 }
 
 async function create(user, data) {
@@ -16,5 +42,6 @@ async function create(user, data) {
 
 module.exports.postService = {
     getAll,
+    getFeed,
     create
 };

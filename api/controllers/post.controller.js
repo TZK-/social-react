@@ -21,6 +21,16 @@ async function getAllForUser(req, res, next) {
     }
 }
 
+async function getFeed(req, res, next) {
+    try {
+        const posts = await postService.getFeed(req.params.id);
+        res.json(posts);
+    } catch (e) {
+        next(e);
+    }
+}
+
+router.get('/users/:id/feed', gate, getFeed);
 router.get('/users/:id/posts', gate, getAllForUser);
 router.post('/posts', [
     check('content').not().isEmpty().withMessage('Field cannot be empty')
