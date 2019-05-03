@@ -50,9 +50,6 @@ class App extends Component {
     render() {
         if (this.props.user !== null) {
             socket.emit('user_connected', this.props.user._id);
-            socket.on('disconnect', userId => {
-
-            })
         }
 
         return (

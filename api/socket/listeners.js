@@ -14,10 +14,10 @@ function getUser(socket) {
 
 const listeners = (io) => {
     io.on(SOCKET_OPENED, (socket) => {
-        socket.on(DISCONNECTED, function () {
+        socket.on(DISCONNECTED, () => {
             const userId = getUser(socket);
 
-            console.log("[Socket bound]: " + userId);
+            console.log("[Socket unbound]: " + userId);
             io.emit(DISCONNECTED, userId);
         });
 
@@ -27,7 +27,7 @@ const listeners = (io) => {
 
             // Notify all user someone connected
             sockets.forEach((socket, userId) => {
-                io.emit(USER_CONNECTED, userId);
+                socket.broadcast.emit(USER_CONNECTED, userId);
             });
         });
     });
