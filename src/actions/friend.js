@@ -4,7 +4,6 @@ import Api from '../Api';
 export const sendRequest = friend => dispatch => {
     Api.post(`friends/${friend._id}`)
         .then(response => {
-            console.log(response.data);
             dispatch({
                 type: FRIEND_ADD,
                 payload: response.data

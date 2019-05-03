@@ -28,7 +28,7 @@ class FriendButton extends React.Component {
             }
         }
 
-        return ({button});
+        return button;
     }
 }
 
@@ -37,7 +37,8 @@ FriendButton.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
+    friends: state.friends
 });
 
-export default connect(mapStateToProps)(FriendButton);
+export default connect(mapStateToProps, {sendRequest, denyRequest})(FriendButton);
