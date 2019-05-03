@@ -15,7 +15,10 @@ function getUser(socket) {
 const listeners = (io) => {
     io.on(SOCKET_OPENED, (socket) => {
         socket.on(DISCONNECTED, function () {
-            io.emit(DISCONNECTED, getUser(socket));
+            const userId = getUser(socket);
+
+            console.log("[Socket bound]: " + userId);
+            io.emit(DISCONNECTED, userId);
         });
 
         socket.on(USER_CONNECTED, userId => {
