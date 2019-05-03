@@ -1,4 +1,4 @@
-import {AUTH_SET_USER, HTTP_ERROR, FRIEND_ADD} from '../actions';
+import {AUTH_SET_USER, HTTP_ERROR} from '../actions';
 import {bindAxiosJWT} from "../helpers/auth";
 
 const user = localStorage.getItem('user');

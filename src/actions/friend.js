@@ -1,4 +1,5 @@
-import {FRIEND_ADD, HTTP_ERROR, FRIEND_REMOVE, FRIEND_FETCHED} from './index';
+import {FRIEND_ACCEPTED, FRIEND_ADD, FRIEND_FETCHED, FRIEND_REMOVE, HTTP_ERROR} from './index';
+
 import Api from '../Api';
 
 export const sendRequest = friend => dispatch => {
@@ -15,6 +16,22 @@ export const sendRequest = friend => dispatch => {
                 payload: e
             });
         });
+};
+
+export const acceptRequest = friend => dispatch => {
+    Api.post(`friends/${friend._id}/accept`)
+        .then(() => {
+            dispatch({
+                type: FRIEND_ACCEPTED,
+                payload: friend
+            })
+        })
+        .catch(e => {
+            dispatch({
+                type: HTTP_ERROR,
+                payload: e
+            });
+        })
 };
 
 export const denyRequest = friend => dispatch => {

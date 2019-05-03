@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import Menu from './components/Menu';
+import Menu from './components/Menu/Menu';
 import './App.css';
 import routes from './Routes';
 import {connect} from 'react-redux';

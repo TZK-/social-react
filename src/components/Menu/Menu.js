@@ -15,8 +15,9 @@ import {
 
 import {NavLink as Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {logoutUser} from "../actions/authentication";
+import {logoutUser} from "../../actions/authentication";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Notifications from "./Notifications";
 
 class Menu extends React.Component {
 
@@ -58,13 +59,12 @@ class Menu extends React.Component {
                                     <FontAwesomeIcon icon="user-friends"/>
                                 </NavLink>
 
-                                <NavLink>
-                                    <FontAwesomeIcon icon="bell"/>
-                                </NavLink>
+
+                                <Notifications tag={Link}/>
 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav style={{padding: '0 10px'}}>
-                                        <img className={"avatar"} src="https://picsum.photos/200"
+                                        <img className={"avatar"} src={this.props.user.avatar}
                                              alt="My profile avatar"/>
                                     </DropdownToggle>
                                     <DropdownMenu right>
