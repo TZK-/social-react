@@ -19,9 +19,13 @@ const listeners = (io) => {
         });
 
         socket.on(USER_CONNECTED, userId => {
-            console.log("LOGGED : " + userId + "\n");
+            console.log("[Socket bound]: " + userId);
             sockets.set(userId, socket);
-            io.emit(USER_CONNECTED, userId);
+
+            // Notify all user someone connected
+            sockets.forEach((socket, userId) => {
+                io.emit(USER_CONNECTED, userId);
+            });
         });
     });
 };
