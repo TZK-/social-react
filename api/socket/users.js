@@ -47,7 +47,7 @@ async function emitLoggedFriends(userId) {
     if (!userSocket) {
         return;
     }
-    
+
     friends.accepted.forEach(({friend}) => {
         userSocket.emit(USER_CONNECTED, friend._id);
     });

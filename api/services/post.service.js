@@ -1,8 +1,8 @@
 const Post = require('../models/post.model');
 const Friend = require('../models/friend.model');
 
-async function getAll(userId) {
-    return await Post.find({author: userId}).sort('-createdAt')
+function getAll(userId) {
+    return Post.find({author: userId}).sort('-createdAt')
         .populate('author')
         .select();
 }
@@ -37,7 +37,7 @@ async function create(user, data) {
     post.author = user._id;
     await post.save();
 
-    return await post.populate('author').execPopulate();
+    return post.populate('author').execPopulate();
 }
 
 module.exports.postService = {

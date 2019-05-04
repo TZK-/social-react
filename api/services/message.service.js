@@ -1,14 +1,27 @@
 const Message = require('../models/message.model');
-const socket = require('../socket/index');
 
-function write(authorId, recipientId, content) {
-    const message = new Message({
-        author: authorId,
-        recipient: recipientId,
-        content
-    });
+function getMessages(senderId, recipientId) {
+    return Message
+        .find({
+            $or: [
+                {author: senderId, recipient: recipientId},
+                {author: recipientId, recipient: senderId},
+            ]
+        })
+        .sort('createdAt')
+        .populate('author')
+        .select('-recipient');
 }
 
-module.exports.friendService = {
-    write
+function create(senderId, recipientId, content) {
+    return new Message({
+        author: senderId,
+        recipient: recipientId,
+        content
+    }).save();
+}
+
+module.exports.messageService = {
+    create,
+    getMessages
 };
