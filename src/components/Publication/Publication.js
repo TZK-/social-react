@@ -38,13 +38,13 @@ class Publication extends React.Component {
                                 target={"tooltip" + this.props.post.id}
                                 isOpen={this.state.tooltipOpen}
                                 toggle={this.toggleTooltip}>
-                                Le <Moment format="MM/DD/YYYY à HH:mm" tz={"Europe/Paris"}/>
+                                Le <Moment format="MM/DD/YYYY à HH:mm" tz={"Europe/Paris"}>{this.props.post.createdAt}</Moment>
                             </Tooltip>
                             <Moment
                                 fromNow
                                 tz={"Europe/Paris"}
                                 id={"tooltip" + this.props.post.id}>
-                                {this.props.post.created_at}
+                                {this.props.post.createdAt}
                             </Moment>
                         </small>
                     </div>
