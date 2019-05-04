@@ -3,7 +3,50 @@ import {
     HTTP_ERROR
 } from './index';
 
+import io from '../socket';
+
 import Api from '../Api';
+
+export const addNotification = request => dispatch => {
+    dispatch({
+        type: FRIEND_ADD,
+        payload: {
+            ...request,
+            friend: {
+                ...request.requester,
+                isRequester: true
+            }
+        }
+    })
+};
+
+export const addFriend = request => dispatch => {
+    dispatch({
+        type: FRIEND_ACCEPTED,
+        payload: {
+            ...request,
+            friend: {
+                ...request.recipient
+            }
+        }
+    });
+};
+
+export const removeFriend = request => dispatch => {
+    dispatch({
+        type: FRIEND_REMOVE,
+        payload: {
+            _id: request.requester
+        }
+    });
+
+    dispatch({
+        type: FRIEND_REMOVE,
+        payload: {
+            _id: request.recipient
+        }
+    });
+};
 
 export const sendRequest = friend => dispatch => {
     Api.post(`friends/${friend._id}`)

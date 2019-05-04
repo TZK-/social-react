@@ -18,11 +18,14 @@ async function getFriends(userId) {
         return {
             _id: request._id,
             accepted: request.accepted,
-            friend
+            friend: {
+                ...friend.toJSON(),
+                isRequester: request.requester._id === friend._id
+            },
         };
     });
 
-    const format = f => ({_id: f._id, friend: f.friend});
+    const format = f => ({_id: f._id, friend: f.friend, requester: f.requester});
 
     return {
         accepted: friends.filter(f => f.accepted).map(format),
@@ -57,9 +60,15 @@ async function sendRequest(requesterId, recipientId) {
 
     await friendRequest.save();
 
+    const populatedRequest = await friendRequest
+        .populate('recipient', '-friends')
+        .populate('requester', '-friends')
+        .execPopulate();
+
     return {
         _id: friendRequest._id,
-        friend: (await friendRequest.populate('recipient', '-friends').execPopulate()).recipient
+        friend: populatedRequest.recipient,
+        requester: populatedRequest.requester
     };
 }
 
@@ -81,19 +90,25 @@ async function accept(requesterId, recipientId) {
     request.accepted = true;
     await request.save();
 
+    const populatedRequest = await request
+        .populate('requester', '-friends')
+        .populate('recipient', '-friends')
+        .execPopulate();
+
     return {
         _id: request._id,
-        friend: request.populate('requester', '-friends').execPopulate()
+        requester: populatedRequest.requester,
+        recipient: populatedRequest.recipient,
     };
 }
 
 function deny(requesterId, recipientId) {
-    return Friend.find({
+   return Friend.findOneAndRemove({
         $or: [
             {requester: requesterId, recipient: recipientId},
             {requester: recipientId, recipient: requesterId}
         ]
-    }).remove();
+    });
 }
 
 module.exports.friendService = {

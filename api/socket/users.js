@@ -14,7 +14,7 @@ function getUserIdFromSocket(socket) {
 
 function getSocketFromUserId(userId) {
     for (const [id, sock] of store) {
-        if (userId.equals(id)) {
+        if ((typeof userId === 'object' && userId.equals(id)) || userId === id) {
             return sock;
         }
     }

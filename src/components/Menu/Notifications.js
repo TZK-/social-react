@@ -9,17 +9,17 @@ class Notifications extends React.Component {
         this.props.acceptRequest(request);
     };
 
-    deny = request => {
-        this.props.denyRequest(request);
+    deny = user => {
+        this.props.denyRequest(user);
     };
 
     render() {
-        const friendNotifications = this.props.pendingRequests.map(r => (
+        const friendNotifications = this.props.pendingRequests.filter(({friend}) => friend.isRequester).map(r => (
             <DropdownItem key={r._id} tag={'div'}>
                 <img className={"avatar"} alt={"avatar"} src={r.friend.avatar}/>
                 {r.friend.first_name} {r.friend.last_name}
                 <FontAwesomeIcon className={"clickable"} icon={"check"} onClick={() => this.accept(r)}/>
-                <FontAwesomeIcon className={"clickable"} icon={"times"} onClick={() => this.deny(r)}/>
+                <FontAwesomeIcon className={"clickable"} icon={"times"} onClick={() => this.deny(r.friend)}/>
             </DropdownItem>
         ));
 
