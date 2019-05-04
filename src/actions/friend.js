@@ -58,7 +58,7 @@ export const fetchFriends = () => dispatch => {
         dispatch({
             type: FRIEND_FETCHED,
             payload: response.data
-        })
+        });
     }).catch(e => {
         dispatch({
             type: HTTP_ERROR,

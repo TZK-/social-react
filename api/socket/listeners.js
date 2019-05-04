@@ -17,7 +17,7 @@ const listeners = (io) => {
 
             // Notify all user someone connected
             store.forEach((socket, userId) => {
-                socket.broadcast.emit(USER_CONNECTED, userId);
+                io.emit(USER_CONNECTED, userId);
             });
         });
     });

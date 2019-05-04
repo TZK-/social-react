@@ -2,6 +2,7 @@ const express = require('express');
 const {gate} = require('../passport');
 const router = express.Router();
 const {friendService} = require("../services/friend.service");
+const {emitLoggedFriends} = require('../socket/users');
 
 async function request(req, res, next) {
     try {
@@ -32,7 +33,9 @@ async function deny(req, res, next) {
 
 async function getAll(req, res, next) {
     try {
-        const friends = await friendService.getFriends(req.user);
+        const friends = await friendService.getFriends(req.user._id);
+        emitLoggedFriends(req.user._id);
+
         res.status(200).json(friends);
     } catch (e) {
         next(e);

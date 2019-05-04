@@ -11,7 +11,7 @@ async function create(req, res, next) {
     validate(req)
         .then(() => postService.create(req.user, req.body))
         .then(post => {
-            emitToFriends(req.user, FRIEND_POST, post);
+            emitToFriends(req.user._id, FRIEND_POST, post);
             res.status(201).json(post);
         })
         .catch(e => next(e));

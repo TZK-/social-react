@@ -2,16 +2,16 @@ const Friend = require('../models/friend.model');
 const NotAllowedError = require('../exceptions/NotAllowedError');
 const NotExistingError = require('../exceptions/NotExistingError');
 
-async function getFriends(user) {
+async function getFriends(userId) {
     const requests = await Friend.find({
         $or: [
-            {requester: user._id},
-            {recipient: user._id}
+            {requester: userId},
+            {recipient: userId}
         ]
     }).populate('requester', '-friends').populate('recipient', '-friends');
 
     const friends = requests.map(request => {
-        const friend = request.requester._id.equals(user._id)
+        const friend = request.requester._id.equals(userId)
             ? request.recipient
             : request.requester;
 

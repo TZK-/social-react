@@ -16,9 +16,8 @@ class ProfileCard extends React.Component {
                 <CardBody>
                     <CardTitle>{this.props.user.first_name} {this.props.user.last_name}</CardTitle>
                     <CardText>
-                        Inscrit
-                        <Moment tz={"Europe/Paris"} fromNow>
-                            {this.props.user.created_at}
+                        Inscrit <Moment tz={"Europe/Paris"} fromNow>
+                            {this.props.user.createdAt}
                         </Moment>
                     </CardText>
                     <FriendButton user={this.props.user}/>
