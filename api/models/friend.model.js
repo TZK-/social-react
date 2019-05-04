@@ -12,7 +12,7 @@ const schema = new mongoose.Schema({
     accepted: {
         type: Boolean
     }
-}, {timestamp: true});
+}, {timestamps: true});
 
 schema.set('toJSON', {virtuals: true});
 

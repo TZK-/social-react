@@ -2,7 +2,7 @@ const Post = require('../models/post.model');
 const Friend = require('../models/friend.model');
 
 async function getAll(userId) {
-    return await Post.find({author: userId}).sort('-created_at')
+    return await Post.find({author: userId}).sort('-createdAt')
         .populate('author')
         .select();
 }
@@ -29,7 +29,7 @@ async function getFeed(userId) {
                 }
             }
         ]
-    }).populate('author').sort('-created');
+    }).populate('author').sort('-createdAt');
 }
 
 async function create(user, data) {
@@ -37,7 +37,7 @@ async function create(user, data) {
     post.author = user._id;
     await post.save();
 
-    return post.populate('author').execPopulate();
+    return await post.populate('author').execPopulate();
 }
 
 module.exports.postService = {

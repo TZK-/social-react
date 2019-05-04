@@ -1,4 +1,4 @@
-import {HTTP_ERROR, POST_CREATED, POSTS_FEED_FETCHED, POSTS_FETCHED} from './index';
+import {HTTP_ERROR, POST_CREATED, POSTS_FEED_FETCHED, POSTS_FETCHED, POSTS_FEED_ADDED} from './index';
 
 import Api from '../Api';
 
@@ -43,5 +43,12 @@ export const fetchFeed = user => dispatch => {
             type: HTTP_ERROR,
             payload: e
         });
+    });
+};
+
+export const addFeed = post => dispatch => {
+    dispatch({
+        type: POSTS_FEED_ADDED,
+        payload: post
     });
 };

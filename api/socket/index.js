@@ -1,1 +1,3 @@
-module.exports = http => require('socket.io')(http);
+const server = require('../server');
+
+module.exports = require('socket.io')(server);

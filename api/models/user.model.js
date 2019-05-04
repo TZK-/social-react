@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Friend'
     }]
-}, {timestamp: true});
+}, {timestamps: true});
 
 schema.pre('init', (user) => {
     const color = colors[parseInt(user._id.valueOf(), 16) % colors.length];

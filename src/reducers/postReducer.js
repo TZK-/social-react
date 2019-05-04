@@ -1,4 +1,4 @@
-import {POST_CREATED, POSTS_FEED_FETCHED, POSTS_FETCHED} from '../actions';
+import {FRIEND_DISCONNECTED, POST_CREATED, POSTS_FEED_FETCHED, POSTS_FETCHED, POSTS_FEED_ADDED} from '../actions';
 
 const initialState = {
     posts: [],
@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 posts: [action.payload, ...posts],
-                feed: [...action.payload, ...feed]
+                feed: [action.payload, ...feed]
             };
 
         case POSTS_FETCHED:
@@ -26,6 +26,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 feed: action.payload
+            };
+
+        case POSTS_FEED_ADDED:
+            return {
+                ...state,
+                feed: [action.payload, ...state.feed]
             };
 
         default:

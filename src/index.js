@@ -19,6 +19,7 @@ import {
 
 import {Provider} from "react-redux";
 import store from "./store";
+import './socket/listeners';
 
 library.add(faUserFriends);
 library.add(faBell);

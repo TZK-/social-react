@@ -1,20 +1,15 @@
 const mongoose = require('mongoose');
-const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config');
 const {notFound} = require("./helpers");
 const {passport} = require('./passport');
 const routes = require('./routes');
-const app = express();
-const http = require('http').Server(app);
+const app = require('./app');
+const http = require('./server');
+const io = require('./socket/index');
 
-app.use(cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-}));
+app.use(cors());
 app.use(passport.initialize());
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,8 +34,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-const socket = require('./socket/index')(http);
-require('./socket/listeners')(socket);
+require('./socket/listeners')(io);
 
 http.listen(config.express_port, () => {
     console.log('Example app listening on *:' + config.express_port);

@@ -38,13 +38,6 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        socket.on('user_connected', userId => {
-            this.props.userConnected(userId);
-        });
-
-        socket.on('disconnect', userId => {
-            this.props.userDisconnected(userId);
-        });
     }
 
     render() {

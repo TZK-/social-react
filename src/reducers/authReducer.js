@@ -20,7 +20,9 @@ export default function (state = initialState, action) {
                 user: action.payload
             };
 
-        case HTTP_ERROR:
+        case HTTP_ERROR: {
+            if (!action.payload.response) return state;
+
             const status = action.payload.response.status;
             const isAuthenticated = status === 401 ? false : state.isAuthenticated;
 
@@ -29,6 +31,7 @@ export default function (state = initialState, action) {
                 isAuthenticated: isAuthenticated,
                 user: isAuthenticated ? state.user : null
             };
+        }
 
         default:
             return state;

@@ -4,11 +4,16 @@ const router = express.Router();
 const {gate} = require('../passport');
 const {validate} = require('../helpers');
 const {check} = require('express-validator/check');
+const {emitToFriends} = require('../socket/users');
+const {FRIEND_POST} = require('../socket/events');
 
 async function create(req, res, next) {
     validate(req)
         .then(() => postService.create(req.user, req.body))
-        .then(post => res.status(201).json(post))
+        .then(post => {
+            emitToFriends(req.user, FRIEND_POST, post);
+            res.status(201).json(post);
+        })
         .catch(e => next(e));
 }
 

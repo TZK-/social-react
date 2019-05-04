@@ -7,6 +7,6 @@ yarn run start
 cd api
 yarn install
 
-EXPRESS_PORT=3001 MONGODB_URI=mongodb://localhost:27017/db nodemon index.js
+EXPRESS_PORT=3001 MONGODB_URI=mongodb://localhost:27017/db ./node_modules/.bin/nodemon index.js
 # Use node instead of nodemon if you want
 ```

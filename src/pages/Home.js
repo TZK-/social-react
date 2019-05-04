@@ -23,7 +23,7 @@ class Home extends React.Component {
                 </Row>
 
                 {this.props.feed.map(post => (
-                    <Row key={post.id} style={{marginBottom: '20px'}}>
+                    <Row key={post._id} style={{marginBottom: '20px'}}>
                         <Col sm={12}>
                             <Publication post={post}/>
                         </Col>
