@@ -1,9 +1,8 @@
 import React from 'react';
-import {Button, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
+import {Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
-import {connect} from "react-redux";
 import FriendButton from "./FriendButton";
 
 class ProfileCard extends React.Component {

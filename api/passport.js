@@ -6,11 +6,11 @@ const {userService} = require("./services/user.service");
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const jwtOptions = {
-    jwtFromRequest:  ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.jwt.secret
 };
 
-const strategy = new JwtStrategy(jwtOptions, async (payload, next)  =>{
+const strategy = new JwtStrategy(jwtOptions, async (payload, next) => {
     let user;
     try {
         user = await userService.getById(payload.id);

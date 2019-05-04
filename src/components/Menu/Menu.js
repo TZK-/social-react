@@ -1,15 +1,6 @@
 import React from 'react';
 import {
-    Collapse,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavbarToggler,
-    NavItem,
-    NavLink,
+    Collapse, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink,
     UncontrolledDropdown
 } from "reactstrap";
 

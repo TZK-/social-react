@@ -7,6 +7,15 @@ import {connect} from "react-redux";
 import {createToast} from "../actions/toast";
 
 class ResetPassword extends React.Component {
+    handleChange = event => {
+        this.setState({
+            email: event.target.email
+        });
+    };
+    handleSubmit = async () => {
+        await Api.post('/auth/reset-password', {}, this.state);
+    };
+
     constructor(props) {
         super(props);
 
@@ -14,16 +23,6 @@ class ResetPassword extends React.Component {
             email: ''
         }
     }
-
-    handleChange = event => {
-        this.setState({
-            email: event.target.email
-        });
-    };
-
-    handleSubmit = async () => {
-        await Api.post('/auth/reset-password', {}, this.state);
-    };
 
     render() {
         return (

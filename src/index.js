@@ -8,14 +8,7 @@ import 'moment/locale/fr';
 import 'moment-timezone';
 
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {
-    faBell,
-    faCheck,
-    faTimes,
-    faPlus,
-    faSearch,
-    faUserFriends
-} from '@fortawesome/free-solid-svg-icons';
+import {faBell, faCheck, faPlus, faSearch, faTimes, faUserFriends} from '@fortawesome/free-solid-svg-icons';
 
 import {Provider} from "react-redux";
 import store from "./store";

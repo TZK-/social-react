@@ -1,4 +1,4 @@
-import {FRIEND_DISCONNECTED, POST_CREATED, POSTS_FEED_FETCHED, POSTS_FETCHED, POSTS_FEED_ADDED} from '../actions';
+import {POST_CREATED, POSTS_FEED_ADDED, POSTS_FEED_FETCHED, POSTS_FETCHED} from '../actions';
 
 const initialState = {
     posts: [],

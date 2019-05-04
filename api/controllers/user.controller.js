@@ -58,7 +58,7 @@ router.post('/users', [
 
     check('password')
         .not().isEmpty().withMessage('Cannot be empty')
-        .isLength({min:5}).withMessage('Must be at least 5 characters'),
+        .isLength({min: 5}).withMessage('Must be at least 5 characters'),
 
     check('password_confirmation')
         .not().isEmpty().withMessage('Cannot be empty')
