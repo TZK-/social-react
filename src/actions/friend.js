@@ -3,8 +3,6 @@ import {
     HTTP_ERROR
 } from './index';
 
-import io from '../socket';
-
 import Api from '../Api';
 
 export const addNotification = request => dispatch => {

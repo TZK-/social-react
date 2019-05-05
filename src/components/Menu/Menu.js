@@ -50,7 +50,6 @@ class Menu extends React.Component {
                                     <FontAwesomeIcon icon="user-friends"/>
                                 </NavLink>
 
-
                                 <Notifications tag={Link}/>
 
                                 <UncontrolledDropdown nav inNavbar>

@@ -12,10 +12,6 @@ import socket from './socket';
 import {userConnected, userDisconnected} from "./actions/friend";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     static renderRoutes() {
         return routes.map((route, index) => {
             if (route.unauthenticated === true) {
@@ -55,11 +51,11 @@ class App extends Component {
                     <Container>
                         {this.props.isAuthenticated ? (
                             <Row>
-                                <Col sm={10}>
+                                <Col sm={12} md={10}>
                                     {App.renderRoutes()}
                                 </Col>
 
-                                <Col sm={2}>
+                                <Col sm={12} md={2}>
                                     <Friends/>
                                 </Col>
                             </Row>
