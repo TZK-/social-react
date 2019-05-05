@@ -3,6 +3,8 @@ const router = express.Router();
 const {gate} = require('../passport');
 const {check} = require('express-validator/check');
 const {messageService} = require('../services/message.service');
+const {getSocketFromUserId} = require('../socket/users');
+const {MESSAGE_POSTED} = require('../socket/events');
 
 async function getAll(req, res, next) {
     try {
@@ -20,6 +22,12 @@ async function create(req, res, next) {
             req.params.recipient,
             req.body.content
         );
+
+        const socket = getSocketFromUserId(req.params.recipient);
+
+        if (socket) {
+            socket.emit(MESSAGE_POSTED, message);
+        }
 
         res.status(201).json(message);
     } catch (e) {

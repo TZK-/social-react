@@ -7,5 +7,7 @@ module.exports = {
     FRIEND_POST: 'friend_post',
     FRIEND_REQUEST: 'friend_request',
     FRIEND_ACCEPTED: 'friend_accepted',
-    FRIEND_DENIED: 'friend_denied'
+    FRIEND_DENIED: 'friend_denied',
+
+    MESSAGE_POSTED: 'message_posted'
 };

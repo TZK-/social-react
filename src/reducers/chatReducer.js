@@ -3,7 +3,8 @@ import {CHAT_CLOSED, CHAT_CONTENT_SET, CHAT_MESSAGE_POSTED, CHAT_MESSAGES_FETCHE
 const initialState = {
     isOpen: false,
     friend: null,
-    messages: []
+    messages: [],
+    notifications: []
 };
 
 export default function (state = initialState, action) {
@@ -12,7 +13,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 friend: action.payload,
-                isOpen: true
+                isOpen: true,
+                notifications: state.notifications.filter(m => m.author._id !== action.payload._id)
             };
 
         case CHAT_CLOSED:
@@ -30,11 +32,22 @@ export default function (state = initialState, action) {
             };
 
         case CHAT_MESSAGE_POSTED:
-            return {
-                ...state,
-                messages: [...state.messages, action.payload],
-                content: ''
-            };
+            if (state.isOpen) {
+                return {
+                    ...state,
+                    messages: [...state.messages, action.payload],
+                    content: ''
+                };
+            }
+
+            if (!state.notifications.find(m => m._id === action.payload.author._id)) {
+                return {
+                    ...state,
+                    notifications: [...state.notifications, action.payload]
+                };
+            }
+
+            return state;
 
         default:
             return state;

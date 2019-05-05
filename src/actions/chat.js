@@ -15,6 +15,13 @@ export const close = user => dispatch => {
     });
 };
 
+export const addMessage = message => dispatch => {
+    dispatch({
+        type: CHAT_MESSAGE_POSTED,
+        payload: message
+    })
+};
+
 export const postMessage = (recipient, content) => dispatch => {
     Api.post('messages/' + recipient._id, {}, {content})
         .then(response => {
