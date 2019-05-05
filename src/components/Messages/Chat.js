@@ -1,13 +1,20 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import {close, fetch} from '../../actions/chat';
-import Message from "./Message";
+import Message from "./Message/Message";
+import MessageForm from "./MessageForm/MessageForm";
 
 class Chat extends React.Component {
+
     close = () => {
         this.props.close();
     };
+
+    static scrollToEnd() {
+        const modal = document.getElementById('modal-content');
+        modal.scrollTop = modal.scrollHeight - modal.clientHeight;
+    }
 
     componentWillMount() {
         this.props.fetch(this.props.friend);
@@ -15,17 +22,17 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <Modal isOpen={this.props.isOpen} toggle={this.close}>
-                <ModalHeader toggle={this.close}>Discution avec {this.props.friend.first_name} {this.props.friend.last_name}</ModalHeader>
-                <ModalBody>
+            <Modal size={"lg"} isOpen={this.props.isOpen} toggle={this.close} scrollable={true}
+                   onOpened={Chat.scrollToEnd}>
+                <ModalHeader toggle={this.close}>Discussion
+                    avec {this.props.friend.first_name} {this.props.friend.last_name}</ModalHeader>
+                <ModalBody id={"modal-content"}>
                     {this.props.messages.map(message => (
-                        <React.Fragment>
-                            <Message message={message} key={message._id} me={this.props.loggedUser}/>
-                        </React.Fragment>
+                        <Message message={message} key={message._id} me={this.props.loggedUser}/>
                     ))}
                 </ModalBody>
                 <ModalFooter>
-                    {/*<!-- DISPLAY message form -->*/}
+                    <MessageForm/>
                 </ModalFooter>
             </Modal>
         );

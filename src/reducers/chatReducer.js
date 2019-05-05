@@ -1,4 +1,4 @@
-import {CHAT_OPENED, CHAT_CLOSED, CHAT_MESSAGES_FETCHED} from '../actions';
+import {CHAT_CLOSED, CHAT_CONTENT_SET, CHAT_MESSAGE_POSTED, CHAT_MESSAGES_FETCHED, CHAT_OPENED} from '../actions';
 
 const initialState = {
     isOpen: false,
@@ -27,6 +27,13 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 messages: action.payload
+            };
+
+        case CHAT_MESSAGE_POSTED:
+            return {
+                ...state,
+                messages: [...state.messages, action.payload],
+                content: ''
             };
 
         default:
