@@ -1,4 +1,4 @@
-import {CHAT_OPENED, CHAT_CLOSED} from '../actions';
+import {CHAT_OPENED, CHAT_CLOSED, CHAT_MESSAGES_FETCHED} from '../actions';
 
 const initialState = {
     isOpen: false,
@@ -21,6 +21,12 @@ export default function (state = initialState, action) {
                 friend: null,
                 isOpen: false,
                 messages: []
+            };
+
+        case CHAT_MESSAGES_FETCHED:
+            return {
+                ...state,
+                messages: action.payload
             };
 
         default:

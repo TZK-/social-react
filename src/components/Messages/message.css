@@ -1,0 +1,21 @@
+.message_container {
+    width: 70%;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.message_me {
+    background: #00c5ed;
+}
+
+.message_friend {
+    background: #757575;
+}
+
+.message_date {
+    font-size: 9px;
+    text-align: right;
+    padding-bottom: 3px;
+}
