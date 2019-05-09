@@ -28,27 +28,25 @@ class Message extends React.Component {
     render() {
         return (
             <div className={this.messageClasses}>
-                <div className={"right"}>
-                    <div>
-                        {this.props.message.content}
-                    </div>
+                <div className={"left-content"}>
+                    {this.props.message.content}
+                </div>
 
-                    <div className="message_date">
-                        <Tooltip
-                            placement="right"
-                            target={"tooltip" + this.props.message._id}
-                            isOpen={this.state.tooltipOpen}
-                            toggle={this.toggleTooltip}>
-                            Le <Moment format="MM/DD/YYYY à HH:mm" tz={"Europe/Paris"}>{this.props.message.createdAt}</Moment>
-                        </Tooltip>
+                <div className="message_date">
+                    <Tooltip
+                        placement="right"
+                        target={"tooltip" + this.props.message._id}
+                        isOpen={this.state.tooltipOpen}
+                        toggle={this.toggleTooltip}>
+                        Le <Moment format="MM/DD/YYYY à HH:mm" tz={"Europe/Paris"}>{this.props.message.createdAt}</Moment>
+                    </Tooltip>
 
-                        <Moment
-                            fromNow
-                            tz={"Europe/Paris"}
-                            id={"tooltip" + this.props.message._id}>
-                            {this.props.message.createdAt}
-                        </Moment>
-                    </div>
+                    <Moment
+                        fromNow
+                        tz={"Europe/Paris"}
+                        id={"tooltip" + this.props.message._id}>
+                        {this.props.message.createdAt}
+                    </Moment>
                 </div>
             </div>
         );

@@ -8,6 +8,9 @@
 
 .message_me {
     background: #00c5ed;
+    text-align: right;
+    display: block;
+    margin: 0 0 10px auto;
 }
 
 .message_friend {
@@ -18,4 +21,8 @@
     font-size: 9px;
     text-align: right;
     padding-bottom: 3px;
+}
+
+.left-content {
+    text-align: left;
 }
