@@ -27,7 +27,6 @@ class Menu extends React.Component {
 
         this.state = {
             isMenuOpen: false,
-            hasNotifications: false // TODO extract in store & create a seperate component
         };
     }
 
@@ -42,6 +41,10 @@ class Menu extends React.Component {
                     <Nav className="ml-auto" navbar>
                         {this.props.user ? (
                             <React.Fragment>
+                                <NavLink tag={Link} exact to={"/members"} activeClassName="active">
+                                    Membres
+                                </NavLink>
+
                                 <NavLink>
                                     <FontAwesomeIcon icon="search"/>
                                 </NavLink>

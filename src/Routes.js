@@ -4,6 +4,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile/Profile";
 import ProfileEdit from "./pages/Profile/ProfileEdit";
 import ResetPassword from "./pages/ResetPassword";
+import Users from "./pages/Users";
 
 export default [
     {
@@ -38,5 +39,10 @@ export default [
         exact: true,
         component: ResetPassword,
         unauthenticated: true,
+    },
+    {
+        path: '/members',
+        exact: true,
+        component: Users,
     }
 ];

@@ -34,7 +34,7 @@ async function edit(req, res, next) {
     if (req.params.id !== req.user.id) {
         next(forbidden());
     }
-    
+
     try {
         const user = await userService.edit(req.params.id, req.body);
         user ? res.json(user) : next();
