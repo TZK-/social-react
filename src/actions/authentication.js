@@ -1,4 +1,4 @@
-import {AUTH_SET_USER, HTTP_ERROR} from './index';
+import {AUTH_SET_USER, EDIT_USER, HTTP_ERROR} from './index';
 import Api from '../Api';
 import {setAuthToken} from "../helpers/auth";
 
@@ -44,4 +44,11 @@ export const logoutUser = (history) => dispatch => {
     });
 
     history.push('/login');
+};
+
+export const editUser = user => dispatch => {
+   dispatch({
+       type: EDIT_USER,
+       payload: user
+   })
 };

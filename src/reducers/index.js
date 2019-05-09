@@ -5,6 +5,7 @@ import postReducer from "./postReducer";
 import toastReducer from "./toastReducer";
 import friendReducer from "./friendReducer";
 import chatReducer from "./chatReducer";
+import {reducer as toastrReducer} from 'react-redux-toastr'
 
 export default combineReducers({
     errors: errorReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     post: postReducer,
     toasts: toastReducer,
     friends: friendReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    toastr: toastrReducer
 });

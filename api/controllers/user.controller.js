@@ -31,19 +31,19 @@ async function show(req, res, next) {
 }
 
 async function edit(req, res, next) {
-    if (req.param.id !== req.user.id) {
+    if (req.params.id !== req.user.id) {
         next(forbidden());
     }
-
+    
     try {
-        const user = await userService.edit(req.params.id);
+        const user = await userService.edit(req.params.id, req.body);
         user ? res.json(user) : next();
     } catch (e) {
         next(e);
     }
 }
 
-router.post('/users', [
+const userValidation = [
     check('email')
         .not().isEmpty().withMessage('Cannot be empty')
         .isEmail().withMessage('Not a valid email'),
@@ -62,12 +62,11 @@ router.post('/users', [
 
     check('password_confirmation')
         .not().isEmpty().withMessage('Cannot be empty')
-], register);
+];
 
+router.post('/users', userValidation, register);
 router.get('/users', gate, getAll);
-
 router.get('/users/:id', gate, show);
-
 router.put('/users/:id', gate, edit);
 
 module.exports = router;

@@ -3,6 +3,10 @@ import {Button, Col, Container, FormGroup, Row} from "reactstrap";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {AvField, AvForm} from "availity-reactstrap-validation";
+import Api from '../../Api';
+import {HTTP_ERROR} from "../../actions";
+import {toastr} from 'react-redux-toastr'
+import {editUser} from "../../actions/authentication";
 
 class ProfileEdit extends React.Component {
 
@@ -15,6 +19,20 @@ class ProfileEdit extends React.Component {
                 [name]: value
             });
         }
+    };
+
+    submit = () => {
+        Api.put('users/' + this.props.user._id, {}, this.state)
+            .then(response => {
+                this.props.editUser(response.data);
+                toastr.success('Profil mis à jour');
+            })
+            .catch(e => {
+                this.props.dispatch({
+                    type: HTTP_ERROR,
+                    payload: e
+                })
+            })
     };
 
     constructor(props) {
@@ -45,7 +63,7 @@ class ProfileEdit extends React.Component {
                     </Col>
 
                     <Col sm={12} md={9}>
-                        <AvForm className="form">
+                        <AvForm className="form" onSubmit={this.submit}>
                             <Col>
                                 <AvField
                                     required
@@ -145,4 +163,4 @@ const mapStateToProps = state => ({
     user: state.auth.user
 });
 
-export default withRouter(connect(mapStateToProps)(ProfileEdit));
+export default withRouter(connect(mapStateToProps, {editUser})(ProfileEdit));

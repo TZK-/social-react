@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Menu from './components/Menu/Menu';
 import './App.css';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import routes from './Routes';
 import {connect} from 'react-redux';
 import PrivateRoute from "./components/Route/PrivateRoute";
 import Friends from "./components/Friends/Friends";
 import {Col, Container, Row} from "reactstrap";
+import ReduxToastr from 'react-redux-toastr'
 
 import socket from './socket';
 import {userConnected, userDisconnected} from "./actions/friend";
@@ -47,6 +49,16 @@ class App extends Component {
                     <header>
                         <Menu/>
                     </header>
+
+                    <ReduxToastr
+                        timeOut={4000}
+                        newestOnTop={false}
+                        preventDuplicates
+                        position="bottom-right"
+                        transitionIn="fadeIn"
+                        transitionOut="fadeOut"
+                        progressBar
+                        closeOnToastrClick/>
 
                     <Container>
                         {this.props.isAuthenticated ? (

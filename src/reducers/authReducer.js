@@ -1,5 +1,5 @@
-import {AUTH_SET_USER, HTTP_ERROR} from '../actions';
-import {bindAxiosJWT} from "../helpers/auth";
+import {AUTH_SET_USER, HTTP_ERROR, EDIT_USER} from '../actions';
+import {bindAxiosJWT, setAuthToken} from "../helpers/auth";
 
 const user = localStorage.getItem('user');
 const token = localStorage.getItem('jwt_token');
@@ -32,6 +32,14 @@ export default function (state = initialState, action) {
                 user: isAuthenticated ? state.user : null
             };
         }
+
+        case EDIT_USER:
+            setAuthToken(action.payload, token);
+
+            return {
+                ...state,
+                user: action.payload
+            };
 
         default:
             return state;

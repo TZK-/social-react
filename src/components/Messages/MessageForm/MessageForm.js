@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Button, Input} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index.es";
-import {postMessage, setContent} from '../../../actions/chat';
+import {postMessage} from '../../../actions/chat';
 
 class MessageForm extends React.Component {
     handleChange = e => {

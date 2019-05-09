@@ -3,6 +3,7 @@ import Moment from "react-moment";
 import {Tooltip} from "reactstrap";
 import './message.css';
 import classNames from 'classnames';
+import Emoji from 'react-emoji-render';
 
 class Message extends React.Component {
     messageClasses = classNames({
@@ -29,7 +30,7 @@ class Message extends React.Component {
         return (
             <div className={this.messageClasses}>
                 <div className={"left-content"}>
-                    {this.props.message.content}
+                    <Emoji text={this.props.message.content}/>
                 </div>
 
                 <div className="message_date">

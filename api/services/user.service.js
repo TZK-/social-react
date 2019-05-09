@@ -39,16 +39,8 @@ async function create(params) {
     return user;
 }
 
-async function edit(user, data) {
-    for (const [key, value] of Object.entries(data)) {
-        if (user[key]) {
-            user[key] = value;
-        }
-    }
-
-    await user.save();
-
-    return user;
+function edit(userId, data) {
+    return User.findOneAndUpdate({_id: userId}, data);
 }
 
 function getJWT(user) {
