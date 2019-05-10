@@ -7,7 +7,6 @@ import {
 import {NavLink as Link, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authentication";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Notifications from "./Notifications";
 
 class Menu extends React.Component {
@@ -41,17 +40,17 @@ class Menu extends React.Component {
                     <Nav className="ml-auto" navbar>
                         {this.props.user ? (
                             <React.Fragment>
+                                <NavLink tag={Link} exact to={"/"} activeClassName="active">
+                                    Fil d'actualité
+                                </NavLink>
+
                                 <NavLink tag={Link} exact to={"/members"} activeClassName="active">
                                     Membres
                                 </NavLink>
 
-                                <NavLink>
-                                    <FontAwesomeIcon icon="search"/>
-                                </NavLink>
-
-                                <NavLink>
-                                    <FontAwesomeIcon icon="user-friends"/>
-                                </NavLink>
+                                {/*<NavLink>*/}
+                                    {/*<FontAwesomeIcon icon="user-friends"/>*/}
+                                {/*</NavLink>*/}
 
                                 <Notifications tag={Link}/>
 

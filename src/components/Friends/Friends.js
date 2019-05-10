@@ -41,8 +41,7 @@ class Friends extends React.Component {
                         <ListGroupItem key={friend._id}>
                             <div className={this.statusClasses(friend)}/>
                             <Link to={"/users/" + friend._id}>{friend.first_name} {friend.last_name}</Link>
-                            <FontAwesomeIcon icon="comment-dots" className={"clickable"}
-                                             onClick={() => this.toggleChat(friend)}/>
+                            {"  "}<FontAwesomeIcon icon="comment-dots" className={"clickable"} onClick={() => this.toggleChat(friend)}/>
                         </ListGroupItem>
                     ))}
                 </ListGroup>

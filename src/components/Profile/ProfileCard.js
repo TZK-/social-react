@@ -11,7 +11,7 @@ class ProfileCard extends React.Component {
         return (
             <Card>
                 <CardImg top height="200px"
-                         src="https://www.philippe-albanel.com/stockphotos/13886-200"
+                         src={this.props.user.avatar}
                          alt="Card image cap"/>
                 <CardBody>
                     <CardTitle>{this.props.user.first_name} {this.props.user.last_name}</CardTitle>

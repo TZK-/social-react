@@ -1,4 +1,4 @@
-import {CHAT_CLOSED, CHAT_CONTENT_SET, CHAT_MESSAGE_POSTED, CHAT_MESSAGES_FETCHED, CHAT_OPENED} from '../actions';
+import {CHAT_CLOSED, CHAT_MESSAGE_POSTED, CHAT_MESSAGES_FETCHED, CHAT_OPENED} from '../actions';
 
 const initialState = {
     isOpen: false,

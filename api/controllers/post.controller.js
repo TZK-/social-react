@@ -35,6 +35,16 @@ async function getFeed(req, res, next) {
     }
 }
 
+async function findOne(req, res, next) {
+    try {
+        const posts = await postService.getOne(req.params.id);
+        res.json(posts);
+    } catch (e) {
+        next(e);
+    }
+}
+
+router.get('/posts/:id', gate, findOne);
 router.get('/users/:id/feed', gate, getFeed);
 router.get('/users/:id/posts', gate, getAllForUser);
 router.post('/posts', [

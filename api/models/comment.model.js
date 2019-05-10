@@ -9,12 +9,12 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    comments: [{
+    post: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
-    }]
+        ref: 'Post'
+    }
 }, {timestamps: true});
 
 schema.set('toJSON', {virtuals: true});
 
-module.exports = mongoose.model('Post', schema);
+module.exports = mongoose.model('Comment', schema);

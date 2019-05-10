@@ -51,15 +51,13 @@ class ProfileEdit extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Col sm={12} md={{size: 9, offset: 3}}>
+                    <Col sm={12} md={{size: 9}}>
                         <h2>Vos informations personnelles</h2>
                     </Col>
                 </Row>
                 <Row>
                     <Col sm={12} md={3}>
-                        <div>
-                            <img src="https://picsum.photos/200" alt="My avatar"/>
-                        </div>
+                        <img style={{width: '200px'}} src={this.props.user.avatar} alt="Your avatr"/>
                     </Col>
 
                     <Col sm={12} md={9}>
