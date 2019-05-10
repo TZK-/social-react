@@ -2,7 +2,13 @@ const Post = require('../models/post.model');
 const Friend = require('../models/friend.model');
 
 function getOne(id) {
-    return Post.findOne({_id: id}).populate('comments').select();
+    return Post.findOne({_id: id})
+        .populate({
+            path: 'comments',
+            populate: [
+                {path: 'author'}
+            ]
+        });
 }
 
 function getAll(userId) {
