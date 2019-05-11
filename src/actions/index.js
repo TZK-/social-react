@@ -1,4 +1,5 @@
 export const HTTP_ERROR = 'GET_ERRORS';
+export const ERRORS_CLEAR = 'ERRORS_CLEAR';
 
 export const AUTH_SET_USER = 'AUTH_SET_USER';
 

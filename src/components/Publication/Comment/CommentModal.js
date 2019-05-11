@@ -2,6 +2,7 @@ import React from "react";
 import {ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import PropTypes from "prop-types";
 import CommentForm from "./CommentForm";
+import Emoji from 'react-emoji-render';
 
 class CommentModal extends React.Component {
 
@@ -13,7 +14,9 @@ class CommentModal extends React.Component {
                     {this.props.post.comments.length > 0 ? (
                         <ListGroup>
                             {this.props.post.comments.map(comment => (
-                                <ListGroupItem key={comment._id}>{comment.content}</ListGroupItem>
+                                <ListGroupItem key={comment._id}>
+                                    <Emoji text={comment.content}/>
+                                </ListGroupItem>
                             ))}
                         </ListGroup>
                     ) : 'Aucun commentaire'}

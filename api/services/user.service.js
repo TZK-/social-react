@@ -40,6 +40,10 @@ async function create(params) {
 }
 
 function edit(userId, data) {
+    if (data.password !== undefined) {
+        data.password = bcrypt.hashSync(data.password);
+    }
+
     return User.findOneAndUpdate({_id: userId}, data);
 }
 

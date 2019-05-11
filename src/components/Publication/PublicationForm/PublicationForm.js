@@ -16,6 +16,8 @@ class PublicationForm extends React.Component {
         this.props.createPost({
             content: this.state.content
         });
+
+        this.cancel();
     };
 
     toggle = () => {

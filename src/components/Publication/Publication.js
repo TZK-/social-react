@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import './publication.css';
 import Moment from "react-moment";
 import CommentModal from "./Comment/CommentModal";
+import Emoji from 'react-emoji-render';
 
 class Publication extends React.Component {
 
@@ -63,7 +64,7 @@ class Publication extends React.Component {
                     <CardBody>
                         <CardTitle>{this.props.post.title}</CardTitle>
                         <CardText className={"text-justify"}>
-                            {this.props.post.content}
+                            <Emoji text={this.props.post.content}/>
                         </CardText>
                     </CardBody>
                     <CardFooter className={"text-right"}>
