@@ -14,6 +14,12 @@ function getOne(id) {
 function getAll(userId) {
     return Post.find({author: userId}).sort('-createdAt')
         .populate('author')
+        .populate({
+            path: 'comments',
+            populate: [
+                {path: 'author'}
+            ]
+        })
         .select();
 }
 
@@ -39,7 +45,15 @@ async function getFeed(userId) {
                 }
             }
         ]
-    }).populate('author').sort('-createdAt');
+    })
+    .populate('author')
+    .populate({
+        path: 'comments',
+        populate: [
+            {path: 'author'}
+        ]
+    })
+    .sort('-createdAt');
 }
 
 async function create(user, data) {

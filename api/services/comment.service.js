@@ -7,11 +7,13 @@ async function create(postId, authorId, content) {
         content
     }).save();
 
-    await Post.findOneAndUpdate({
+    const post = await Post.findOneAndUpdate({
         _id: postId
     }, {
         $push: {comments: comment._id}
     });
+
+    comment.post = postId;
 
     return comment
         .populate('author')
