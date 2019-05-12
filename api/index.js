@@ -8,6 +8,9 @@ const routes = require('./routes');
 const app = require('./app');
 const http = require('./server');
 const io = require('./socket/index');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 app.use(cors());
 app.use(passport.initialize());
@@ -16,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/', routes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => {
     next(notFound());
