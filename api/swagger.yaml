@@ -7,6 +7,26 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
+  description: >
+    This API exposes few endpoints used to interact with SocialReact. <br/>
+    Some of these endpoints emit WebSocket messages that you can catch by opening a Websocket on the same host than the API itself.<br/>
+    Here are the events you can <b>listen on</b>:<br/>
+    <ul>
+      <li><strong>disconnect</strong>(return string: User:_id): When a connected user leaves the application</li>
+      <li><strong>user_connected</strong>(return string: User:_id): When the user is logged to the application</li>
+      <li><strong>friend_post</strong>(return object: Post): When a user friend posts a new message</li>
+      <li><strong>friend_request</strong>(return object: Friend): When a user sends a friend requests to the logged user</li>
+      <li><strong>friend_accepted</strong>(return object: Friend): When a friend request has been accepted</li>
+      <li><strong>friend_denied</strong>(return object: Friend): When a friend request has been denied</li>
+      <li><strong>message_posted</strong>(return object: Message): When a private message has been sent, notify the recipient</li>
+    </ul>
+    <br/>
+    There are also some events the API listen on and that can be <strong>emitted from the client side</strong>:<br/>
+    <ul>
+      <li>
+        <strong>user_connected</strong>(return string: User:_id): Send this event when a user has logged in. The API will broadcast the connection event to all the user friends. It will return the logged user though the Websocket.
+      </li>
+    </ul>
 servers:
   - url: /
 tags:
