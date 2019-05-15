@@ -19,6 +19,8 @@ import {Provider} from "react-redux";
 import store from "./store";
 import './socket/listeners';
 
+require('dotenv').config();
+
 library.add(faUserFriends);
 library.add(faBell);
 library.add(faSearch);

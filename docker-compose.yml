@@ -1,0 +1,26 @@
+version: '3'
+services:
+  api:
+    build: api
+    ports:
+    - 3000:3000
+    environment:
+    - EXPRESS_PORT=3000
+    - MONGODB_URI=mongodb://db:27017/social-react
+    - JWT_SECRET=CHANGE_ME
+    depends_on:
+    - db
+  front:
+    build:
+      context: front/
+      args:
+        - REACT_APP_API_ENTRYPOINT=http://localhost:3000
+    ports:
+    - 5000:5000
+    depends_on:
+    - api
+  db:
+    image: mongo:4.1
+    restart: always
+    volumes:
+    - ./data:/data/db

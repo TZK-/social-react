@@ -1,19 +1,40 @@
-# Requirement (tested on)
-- Node 10.15.3
-- npm 6.1.0 // yarn 1.6.0
-- mongo 4.0.9
+# Installation
+
+## With Docker (easy solution)
+### Tested Requirement
+- Docker CE v18.09.2
+- Docker Compose v1.23.2
 
 ```sh
-# Run frontend from root project folder (will listen on localhost:3000 by default)
-yarn install
-yarn run start
+git clone https://github.com/TZK-/social-react.git
+cd social-react
+docker-compose up -d
+```
 
-# Run backend API (mongodb should be started)
+NB. You can customize the docker-compose.yml to change the opened ports etc. but by default the API will be accessible through [http://localhost:3000](http://localhost:3000) and the ReactApp from [http://localhost:5000](http://localhost:5000)
+
+## Local installation
+### Tested Requirement
+- node v11.14.0
+- npm v6.9.0
+- yarn v1.7.0
+- mongo v4.0.3
+
+```sh
+git clone https://github.com/TZK-/social-react.git
+cd social-react
+cd front
+yarn install
+yarn run start # or build the app with yarn run build
+
+cd ..
 cd api
 yarn install
 
-EXPRESS_PORT=3001 MONGODB_URI=mongodb://localhost:27017/db ./node_modules/.bin/nodemon index.js
+# Need to have a running mongo instance
+EXPRESS_PORT=3000 MONGODB_URI=mongodb://localhost:27017/db node index.js
 ```
 
-# API documentation
-Since the API server is running, you can access its swagger documentation through http://API_URL:PORT/api-docs
+# API Documentation
+There is a Swagger documentation available served by the API server. It is accessible from 
+[http://localhost:5000/api-docs](http://localhost:5000/api-docs)
