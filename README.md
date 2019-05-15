@@ -25,13 +25,14 @@ git clone https://github.com/TZK-/social-react.git
 cd social-react
 cd front
 yarn install
+cp .env.example .env
+# fill the .env with the API server url (http://localhost:5000)
+
 PORT=5000 yarn run start # or build the app with yarn run build
 
 cd ..
 cd api
 yarn install
-cp .env.example .env
-# fill the .env with the API server url (http://localhost:5000)
 
 # Need to have a running mongo instance
 EXPRESS_PORT=3000 MONGODB_URI=mongodb://localhost:27017/db node index.js
